@@ -23,9 +23,15 @@
               "src/assets"
             ],
             "styles": [
+              "src/pingendo-libs/font-awesome.min.css",
+              "src/pingendo-libs/bootstrap-4.3.1.css",
               "src/styles.css"
             ],
-            "scripts": [],
+            "scripts": [
+              "./src/pingendo-libs/jquery-3.3.1.slim.min.js",
+              "./src/pingendo-libs/popper.min.js",
+              "./src/pingendo-libs/bootstrap.min.js"
+            ],
             "es5BrowserSupport": true
           },
           "configurations": {
