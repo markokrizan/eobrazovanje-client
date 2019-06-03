@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
+import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -7,9 +10,35 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+  public user;
+  public wrongUsernameOrPass:boolean;
+
+  constructor(private authenticationService:AuthenticationService,
+              private router: Router) {
+    this.user = {};
+    this.wrongUsernameOrPass = false;
+   }
 
   ngOnInit() {
+  }
+
+  login():void{
+    this.authenticationService.login(this.user.username, this.user.password).subscribe(
+      (loggedIn:boolean) => {
+        if(loggedIn){
+          this.router.navigate(['/']);          
+        }
+      }
+    ,
+    (err:Error) => {
+      if(err.toString()==='Ilegal login'){
+        this.wrongUsernameOrPass = true;
+        console.log(err);
+      }
+      else{
+        Observable.throw(err);
+      }
+    });
   }
 
 }
