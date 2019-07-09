@@ -7,10 +7,17 @@ export class JwtUtilsService {
 
   constructor() { }
 
-  getRoles(token:string){
+  decodePayload(token:string){
     let jwtData = token.split('.')[1]
     let decodedJwtJsonData = window.atob(jwtData)
-    let decodedJwtData = JSON.parse(decodedJwtJsonData)
-    return decodedJwtData.roles.map(x => x.authority)||[];
+    return JSON.parse(decodedJwtJsonData)
+  }
+
+  getId(token:string){
+    return this.decodePayload(token).sub;
+  }
+
+  getRoles(token:string){
+    return this.decodePayload(token).roles.map(x => x.authority)||[];
   }
 }

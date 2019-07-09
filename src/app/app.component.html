@@ -1,8 +1,8 @@
-<app-header></app-header>
 <div class="container-fluid">
     <!-- If not logged in: -->
     <div *ngIf="loggedIn; else notLoggedInTemplate">
       <!--If logged in: -->
+      <app-header [loggedIn]="loggedIn" [loggedInUser]="loggedInUser" (logoutEvent)="logout()"></app-header>
       <div class="row">
         <div class="col-md-8 h-100">
           <router-outlet></router-outlet>

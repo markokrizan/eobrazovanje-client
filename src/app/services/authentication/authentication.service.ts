@@ -5,13 +5,14 @@ import { catchError } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 import { JwtUtilsService } from './jwt-utils.service';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
 
-  private readonly loginPath = '/api/login'
+  private readonly loginPath = `${environment.apiBaseUri}/auth/signin`
 
   constructor(private http: HttpClient, private jwtUtilsService: JwtUtilsService) { }
 
@@ -19,9 +20,10 @@ export class AuthenticationService {
     var headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post(this.loginPath, JSON.stringify({ username, password }), { headers })
       .pipe(map((res: any) => {
-        let token = res && res['token'];
+        let token = res && res['accessToken'];
         if (token) {
           localStorage.setItem('currentUser', JSON.stringify({ 
+                                    id : this.jwtUtilsService.getId(token),
                                     username: username, 
                                     roles:this.jwtUtilsService.getRoles(token), 
                                     token: token 
