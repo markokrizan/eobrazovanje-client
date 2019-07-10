@@ -6,13 +6,15 @@ import { HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 import { JwtUtilsService } from './jwt-utils.service';
 import { environment } from '../../../environments/environment';
+import Student from 'src/app/models/student';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
 
-  private readonly loginPath = `${environment.apiBaseUri}/auth/signin`
+  private readonly loginPath = `${environment.apiBaseUri}/auth/signin`;
+  private readonly mePath = `${environment.apiBaseUri}/auth/me`;
 
   constructor(private http: HttpClient, private jwtUtilsService: JwtUtilsService) { }
 
@@ -66,5 +68,9 @@ export class AuthenticationService {
     else{
       return undefined;
     }
+  }
+
+  getMe():Observable<any> {
+    return this.http.get<any>(this.mePath);
   }
 }

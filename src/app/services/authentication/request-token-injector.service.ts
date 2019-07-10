@@ -19,7 +19,7 @@ export class RequestTokenInjectorService implements HttpInterceptor {
     let authenticationService:AuthenticationService = this.inj.get(AuthenticationService); 
     request = request.clone({
       setHeaders: {
-        'X-Auth-Token': `${authenticationService.getToken()}`
+        'Authorization': `Bearer ${authenticationService.getToken()}`
       }
     });
 

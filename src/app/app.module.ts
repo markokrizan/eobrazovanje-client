@@ -20,6 +20,9 @@ import { ActiveTermComponent } from './components/active-term/active-term.compon
 import { DocumentsComponent } from './components/documents/documents.component';
 import { DocumentItemComponent } from './components/document-item/document-item.component';
 import { AddPaymentComponent } from './components/add-payment/add-payment.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { RequestTokenInjectorService } from './services/authentication/request-token-injector.service';
+import { AuthenticationService } from './services/authentication/authentication.service';
 
 @NgModule({
   declarations: [
@@ -47,7 +50,11 @@ import { AddPaymentComponent } from './components/add-payment/add-payment.compon
     HttpClientModule,
     FormsModule
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: RequestTokenInjectorService,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
