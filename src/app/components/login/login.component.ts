@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { throwError } from 'rxjs';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 
@@ -28,17 +28,7 @@ export class LoginComponent implements OnInit {
         if(loggedIn){
           this.router.navigate(['/']);          
         }
-      }
-    ,
-    (err:Error) => {
-      if(err.toString()==='Ilegal login'){
-        this.wrongUsernameOrPass = true;
-        console.log(err);
-      }
-      else{
-        Observable.throw(err);
-      }
-    });
+      });
   }
-
 }
+

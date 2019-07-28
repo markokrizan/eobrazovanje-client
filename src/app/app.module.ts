@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, ErrorHandler } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
@@ -22,7 +22,11 @@ import { DocumentItemComponent } from './components/document-item/document-item.
 import { AddPaymentComponent } from './components/add-payment/add-payment.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RequestTokenInjectorService } from './services/authentication/request-token-injector.service';
-import { AuthenticationService } from './services/authentication/authentication.service';
+import {  GlobalErrorHandler } from './services/error-service/global-error-handler';
+import { ServerErrorInterceptor } from './services/error-service/server-error-interceptor';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CommonModule } from '@angular/common';
+import {MatSnackBarModule} from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -48,13 +52,27 @@ import { AuthenticationService } from './services/authentication/authentication.
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    CommonModule,
+    BrowserAnimationsModule,
+    MatSnackBarModule
   ],
-  providers: [{
-    provide: HTTP_INTERCEPTORS,
-    useClass: RequestTokenInjectorService,
-    multi: true
-  }],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: RequestTokenInjectorService,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ServerErrorInterceptor,
+      multi: true
+    },
+    {
+      provide : ErrorHandler,
+      useClass: GlobalErrorHandler
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

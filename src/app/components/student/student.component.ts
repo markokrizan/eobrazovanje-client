@@ -9,7 +9,7 @@ import Student from 'src/app/models/student';
 })
 export class StudentComponent implements OnInit {
 
-  student: Student = {};
+  student = {};
 
   constructor(private authenticationService: AuthenticationService) { }
 

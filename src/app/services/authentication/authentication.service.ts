@@ -35,14 +35,6 @@ export class AuthenticationService {
         else {
           return false;
         }
-      }),
-      catchError((error: any) => {
-        if (error.status === 400) {
-          return Observable.throw('Ilegal login');
-        }
-        else {
-          return Observable.throw(error.json().error || 'Server error');
-        }
       }))
   }
 

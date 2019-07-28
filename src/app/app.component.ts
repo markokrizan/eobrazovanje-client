@@ -11,12 +11,12 @@ import User from './models/user';
 export class AppComponent implements OnInit {
   title = 'eobrazovanje-client';
   loggedIn: Boolean = false;
-  loggedInUser: User = {};
+  loggedInUser = {};
 
   constructor(private authenticationService: AuthenticationService,
     private router: Router){
 
-    router.events.subscribe( (event: Event) => {
+    router.events.subscribe( (event ) => {
       if (event instanceof NavigationStart) {
           //TODO:
           // Show loading indicator
