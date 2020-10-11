@@ -9,14 +9,14 @@ import { GradesComponent } from './components/grades/grades.component';
 import { ExamRegistrationsComponent } from './components/exam-registrations/exam-registrations.component';
 
 const routes: Routes = [
-  {path: '', component: StudentComponent},
-  {path: 'login', component: LoginComponent},
-  {path: 'student', component: StudentComponent},
-  {path: 'courses', component: CoursesComponent},
-  {path: 'documents', component: DocumentsComponent},
-  {path: 'payments', component: PaymentsComponent},
-  {path: 'grades', component: GradesComponent},
-  {path: 'exam-registrations', component: ExamRegistrationsComponent}
+  { path: '', component: StudentComponent},
+  { path: 'login', component: LoginComponent},
+  { path: 'student', component: StudentComponent},
+  { path: 'courses', component: CoursesComponent},
+  { path: 'documents', component: DocumentsComponent},
+  { path: 'payments', component: PaymentsComponent},
+  { path: 'grades', component: GradesComponent},
+  { path: 'exam-registrations', component: ExamRegistrationsComponent}
 ];
 
 @NgModule({

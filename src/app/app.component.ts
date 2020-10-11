@@ -10,22 +10,22 @@ import User from './models/user';
 })
 export class AppComponent implements OnInit {
   title = 'eobrazovanje-client';
-  loggedIn: Boolean = false;
-  loggedInUser = {};
+  loggedIn = false;
+  loggedInUser = { };
 
   constructor(private authenticationService: AuthenticationService,
-    private router: Router){
+    private router: Router) {
 
     router.events.subscribe( (event ) => {
       if (event instanceof NavigationStart) {
-          //TODO:
+          // TODO:
           // Show loading indicator
       }
       if (event instanceof NavigationEnd) {
           // TODO:
           // Hide loading indicator
 
-          //check logged in state after any routing event
+          // check logged in state after any routing event
           this.loggedIn = this.isLoggedIn();
           this.loggedInUser = this.getLoggedInUser();
       }
@@ -36,27 +36,27 @@ export class AppComponent implements OnInit {
     });
   }
 
-  ngOnInit() { 
+  ngOnInit() {
     this.loggedIn = this.isLoggedIn();
-    if(!this.loggedIn){
+    if (!this.loggedIn) {
       this.router.navigate(['/login']);
     }
     this.loggedInUser = this.getLoggedInUser();
   }
 
-  isLoggedIn():boolean{
+  isLoggedIn(): boolean {
     return this.authenticationService.isLoggedIn();
   }
 
-  getLoggedInUser():User{
+  getLoggedInUser(): User {
     return this.authenticationService.getCurrentUser();
   }
 
-  logout():void{
+  logout(): void {
     this.authenticationService.logout();
     this.router.navigate(['/login']);
   }
 
 
-  
+
 }

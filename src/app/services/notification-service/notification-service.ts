@@ -5,9 +5,9 @@ import { MatSnackBar } from '@angular/material';
   providedIn: 'root'
 })
 export class NotificationService {
-  
+
   constructor(private popupService: MatSnackBar, private zone: NgZone) { }
-  
+
   showSuccess(message: string): void {
     this.zone.run(() => {
       const snackBar = this.popupService.open(message);
@@ -16,11 +16,10 @@ export class NotificationService {
         })
       });
   }
-  
-  
-  showError(message: string): void {    
+
+  showError(message: string): void {
     this.zone.run(() => {
-      const snackBar = this.popupService.open(message, 'X', {panelClass: ['error']});
+      const snackBar = this.popupService.open(message, 'X', { panelClass: ['error']});
         snackBar.onAction().subscribe(() => {
           snackBar.dismiss();
         })

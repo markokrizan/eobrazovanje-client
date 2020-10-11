@@ -26,7 +26,7 @@ import {  GlobalErrorHandler } from './services/error-service/global-error-handl
 import { ServerErrorInterceptor } from './services/error-service/server-error-interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
-import {MatSnackBarModule} from '@angular/material';
+import { MatSnackBarModule} from '@angular/material';
 
 @NgModule({
   declarations: [

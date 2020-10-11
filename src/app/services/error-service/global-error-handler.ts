@@ -5,7 +5,6 @@ import { NotificationService } from '../notification-service/notification-servic
 
 @Injectable()
 export class GlobalErrorHandler implements ErrorHandler {
-  
     constructor(private injector: Injector) { }
 
     handleError(error: Error | HttpErrorResponse) {
@@ -27,7 +26,5 @@ export class GlobalErrorHandler implements ErrorHandler {
             stackTrace = errorService.getClientStack(error);
             notifier.showError(message);
         }
-
-        console.log(message); 
     }
 }
