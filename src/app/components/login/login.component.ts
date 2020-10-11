@@ -13,10 +13,9 @@ export class LoginComponent implements OnInit {
   public wrongUsernameOrPass: boolean;
 
   constructor(private authenticationService: AuthenticationService,
-              private router: Router) {
-    this.user = { };
-    this.wrongUsernameOrPass = false;
-   }
+    private router: Router) {
+    this.user = {};
+  }
 
   ngOnInit() {
   }
@@ -27,7 +26,8 @@ export class LoginComponent implements OnInit {
         if (loggedIn) {
           this.router.navigate(['/']);
         }
-      });
+      }
+    );
   }
 }
 
