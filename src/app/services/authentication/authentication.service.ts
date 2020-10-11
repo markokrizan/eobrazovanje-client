@@ -21,19 +21,20 @@ export class AuthenticationService {
     return this.http.post(this.loginPath, JSON.stringify({ username, password }), { headers })
       .pipe(map((res: any) => {
         const token = res && res.accessToken;
-        if (token) {
-          localStorage.setItem('currentUser', JSON.stringify({
-                                    id : this.jwtUtilsService.getId(token),
-                                    username,
-                                    roles: this.jwtUtilsService.getRoles(token),
-                                    token
-                                  }));
-          return true;
-        }
-        else {
+
+        if (!token) {
           return false;
         }
-      }))
+
+        localStorage.setItem('currentUser', JSON.stringify({
+          id: this.jwtUtilsService.getId(token),
+          username,
+          roles: this.jwtUtilsService.getRoles(token),
+          token
+        }));
+
+        return true;
+      }));
   }
 
   getToken(): string {

@@ -20,11 +20,15 @@ export class GlobalErrorHandler implements ErrorHandler {
             message = errorService.getServerMessage(error);
             stackTrace = errorService.getServerStack(error);
             notifier.showError(message);
+
+            console.error(error);
         } else {
             // Client Error
             message = errorService.getClientMessage(error);
             stackTrace = errorService.getClientStack(error);
             notifier.showError(message);
+
+            console.error(error);
         }
     }
 }
