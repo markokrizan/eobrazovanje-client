@@ -12,7 +12,7 @@ import { environment } from '../../../environments/environment';
 export class AuthenticationService {
 
   private readonly loginPath = `${environment.apiBaseUri}/auth/signin`;
-  private readonly mePath = `${environment.apiBaseUri}/auth/me`;
+  private readonly mePath = `${environment.apiBaseUri}/users/me`;
 
   constructor(private http: HttpClient, private jwtUtilsService: JwtUtilsService) { }
 

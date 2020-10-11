@@ -8,18 +8,13 @@ import { AuthenticationService } from 'src/app/services/authentication/authentic
 })
 export class StudentComponent implements OnInit {
 
-  student = { };
+  student = {};
 
   constructor(private authenticationService: AuthenticationService) { }
 
-  filterStudent(userTypes) {
-    const studentTypes =  userTypes.filter(userType => userType.userType === 'student');
-    return studentTypes[0].userData;
-  }
-
   ngOnInit() {
     this.authenticationService.getMe().subscribe(data => {
-      this.student = this.filterStudent(data);
+      this.student = data;
     });
   }
 
