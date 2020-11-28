@@ -13,8 +13,10 @@ export class AppComponent implements OnInit {
   loggedIn = false;
   loggedInUser = { };
 
-  constructor(private authenticationService: AuthenticationService,
-    private router: Router) {
+  constructor(
+    private authenticationService: AuthenticationService,
+    private router: Router
+    ) {
 
     router.events.subscribe( (event ) => {
       if (event instanceof NavigationStart) {
@@ -56,7 +58,5 @@ export class AppComponent implements OnInit {
     this.authenticationService.logout();
     this.router.navigate(['/login']);
   }
-
-
 
 }

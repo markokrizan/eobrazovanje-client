@@ -1,23 +1,20 @@
-<div class="container-fluid">
+<div class="vh-100">
     <!-- If not logged in: -->
-    <div *ngIf="loggedIn; else notLoggedInTemplate">
-      <!--If logged in: -->
+    <div class="vh-100" *ngIf="loggedIn; else notLoggedInTemplate">
       <app-header [loggedIn]="loggedIn" [loggedInUser]="loggedInUser" (logoutEvent)="logout()"></app-header>
-      <div class="row">
-        <div class="col-md-8 h-100">
-          <router-outlet></router-outlet>
-        </div>
-        <div class="col-md-4 h-100">
-          <app-main-menu></app-main-menu>
-        </div>
-      </div>
+
+      <app-main-menu></app-main-menu>
+        <router-outlet></router-outlet>
+
     </div>
     <ng-template #notLoggedInTemplate>
         <app-login></app-login>
     </ng-template>
 
-    
-  </div>
+
+</div>
+
+
 
 
 

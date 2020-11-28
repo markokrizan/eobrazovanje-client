@@ -1,17 +1,14 @@
-<nav class="navbar navbar-expand-md navbar-light bg-dark mb-3">
-  <div class="container"> <a class="navbar-brand text-primary" href="#">
-      <i class="fa d-inline fa-lg fa-graduation-cap text-info"></i>
-      <b class="text-info"> E obrazovanje&nbsp;</b>
-    </a> <button class="navbar-toggler navbar-toggler-right border-0" type="button" data-toggle="collapse" data-target="#navbar4">
-      <span class="navbar-toggler-icon"></span>
+<nav class="navbar navbar-expand-lg navbar-light bg-info">
+  <div class="container"> <button class="navbar-toggler navbar-toggler-right border-0 p-0" type="button" data-toggle="collapse" data-target="#navbar8">
     </button>
-    <div class="collapse navbar-collapse d-flex justify-content-end align-items-center" id="navbar4">
-      <div *ngIf="loggedIn; else notLoggedInTemplate">
-        <span class="text-info">{{loggedInUser.username}}</span> <a (click)="logout()" class="btn navbar-btn ml-md-2 btn-light">Logout</a>
-      </div>
-      <ng-template #notLoggedInTemplate>
-          <a routerLink="/login" class="btn navbar-btn ml-md-2 btn-light">Login</a>
-      </ng-template>
+    <div class="collapse navbar-collapse" id="navbar8">
+      <p class="d-none d-md-block lead mb-0 text-dark"> <i class="fa d-inline fa-graduation-cap fa-2x"></i> <b>E-Obrazovanje</b>&nbsp;</p>
+      <ul class="navbar-nav ml-auto">
+        <h3 class="ml-auto">{{loggedInUser.username}}</h3>
+      </ul>
+      <ul class="navbar-nav ml-auto">
+        <a class="btn btn-outline-dark" (click)="logout()">Odjavi se<br></a>
+      </ul>
     </div>
   </div>
 </nav>

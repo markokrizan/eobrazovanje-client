@@ -32,6 +32,7 @@ export class AuthenticationService {
           roles: this.jwtUtilsService.getRoles(token),
           token
         }));
+        localStorage.setItem('userRole', this.jwtUtilsService.getRoles(token));
 
         return true;
       }));

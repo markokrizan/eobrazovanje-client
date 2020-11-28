@@ -27,6 +27,7 @@ import { ServerErrorInterceptor } from './services/error-service/server-error-in
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
 import { MatSnackBarModule} from '@angular/material';
+import { HomeComponent } from './components/home/home.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { MatSnackBarModule} from '@angular/material';
     ActiveTermComponent,
     DocumentsComponent,
     DocumentItemComponent,
-    AddPaymentComponent
+    AddPaymentComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

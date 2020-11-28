@@ -7,9 +7,10 @@ import { DocumentsComponent } from './components/documents/documents.component';
 import { PaymentsComponent } from './components/payments/payments.component';
 import { GradesComponent } from './components/grades/grades.component';
 import { ExamRegistrationsComponent } from './components/exam-registrations/exam-registrations.component';
+import { HomeComponent } from './components/home/home.component';
 
 const routes: Routes = [
-  { path: '', component: StudentComponent},
+  { path: '', component: HomeComponent},
   { path: 'login', component: LoginComponent},
   { path: 'student', component: StudentComponent},
   { path: 'courses', component: CoursesComponent},

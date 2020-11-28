@@ -1,13 +1,22 @@
-<div class="card w-100 h-100">
-  <div class="card-header"> Menu</div>
-  <div class="card-body">
-    <div class="list-group">
-      <a routerLink="/student" class="list-group-item list-group-item-action">General info</a>
-      <a routerLink="/documents" class="list-group-item list-group-item-action">Documents</a>
-      <a routerLink="/payments" class="list-group-item list-group-item-action">Payments</a>
-      <a routerLink="/grades" class="list-group-item list-group-item-action">Grades</a>
-      <a routerLink="/exam-registrations" class="list-group-item list-group-item-action">Exam Registrations</a>
-      <a routerLink="/courses" class="list-group-item list-group-item-action">Courses</a>
+<div class="w-25 content-wrapper-height bg-light d-inline-flex">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 h-100">
+        <ul class="list-group list-group-flush" routerLinkActive="active">
+          <li routerLink="student" *ngIf="userRole !== 'ROLE_TEACHER'" class="list-group-item"><i class="fa mr-2 fa-user-o text-body"></i>Podaci o studentu</li>
+          <li routerLink="" *ngIf="userRole !== 'ROLE_STUDENT'" class="list-group-item"><i class="fa mr-2 fa-user-circle-o text-body"></i>&nbsp;Podaci o profeseoru</li>
+          <li routerLink="" *ngIf="userRole === 'ROLE_ADMIN'" class="list-group-item"><i class="fa mr-2 text-body fa-user-secret"></i>&nbsp;Podaci o administratoru</li>
+          <li routerLink="documents" class="list-group-item"><i class="fa mr-2 fa-archive text-body"></i>&nbsp;Dokumenti studenta</li>
+          <li routerLink="grades" class="list-group-item"><i class="fa mr-2 fa-check-square-o text-body"></i>&nbsp;Polozeni ispiti</li>
+          <li routerLink="" class="list-group-item"><i class="fa mr-2 fa-square-o text-body"></i>&nbsp;Nepoloženi ispiti</li>
+          <li routerLink="" class="list-group-item"><i class="fa mr-2 fa-history text-body"></i>&nbsp;Istorija polaganja</li>
+          <li routerLink="exam-registrations" class="list-group-item"><i class="fa mr-2 fa-sign-in text-body"></i>&nbsp;Prijava ispita</li>
+          <li routerLink="" class="list-group-item"><i class="fa mr-2 fa-sign-out text-body"></i>&nbsp;Odjava Ispita</li>
+          <li routerLink="payments" class="list-group-item"><i class="fa mr-2 fa-credit-card text-body"></i>&nbsp;Finansijska kartica</li>
+          <li routerLink="courses" class="list-group-item"><i class="fa mr-2 fa-book text-body"></i>&nbsp;Predmeti</li>
+          <li routerLink="" class="list-group-item"><i class="fa mr-2 fa-pencil-square-o text-body"></i>&nbsp;Ispiti</li>
+        </ul>
+      </div>
     </div>
   </div>
 </div>
