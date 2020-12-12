@@ -14,7 +14,10 @@ export class AuthenticationService {
   private readonly loginPath = `${environment.apiBaseUri}/auth/signin`;
   private readonly mePath = `${environment.apiBaseUri}/users/me`;
 
-  constructor(private http: HttpClient, private jwtUtilsService: JwtUtilsService) { }
+  constructor(
+    private http: HttpClient,
+    private jwtUtilsService: JwtUtilsService
+    ) { }
 
   login(username: string, password: string): Observable<boolean> {
     const headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
@@ -49,15 +52,17 @@ export class AuthenticationService {
   }
 
   isLoggedIn(): boolean {
-    if (this.getToken() !== '') return true;
-    else return false;
+    if (this.getToken() !== '') {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   getCurrentUser() {
     if (localStorage.currentUser) {
       return JSON.parse(localStorage.currentUser);
-    }
-    else {
+    } else {
       return undefined;
     }
   }

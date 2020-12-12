@@ -22,15 +22,17 @@
               "src/favicon.ico",
               "src/assets"
             ],
-            "styles": [ 
+            "styles": [
               "src/pingendo-libs/font-awesome.min.css",
               "src/pingendo-libs/bootstrap-4.3.1.css",
-              "src/styles.css"
+              "src/styles.css",
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css"
             ],
             "scripts": [
               "./src/pingendo-libs/jquery-3.3.1.slim.min.js",
               "./src/pingendo-libs/popper.min.js",
-              "./src/pingendo-libs/bootstrap.min.js"
+              "./src/pingendo-libs/bootstrap.min.js",
+              "./node_modules/bootstrap/dist/js/bootstrap.min.js"
             ],
             "es5BrowserSupport": true
           },

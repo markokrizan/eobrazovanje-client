@@ -3,11 +3,11 @@
     <div class="row row-body-my">
       <div class="col-md-12 pr-0">
         <ul class="nav nav-tabs">
-          <li *ngIf="!studentRole"  (click)="changTab(1)" class="nav-item"> <a [ngClass]="(activeTab === 1) ? 'active' : ''" href="" class="nav-link " data-toggle="tab" data-target="#tabone">List</a> </li>
+          <li *ngIf="!teacherRole"  (click)="changTab(1)" class="nav-item"> <a [ngClass]="(activeTab === 1) ? 'active' : ''" href="" class="nav-link " data-toggle="tab" data-target="#tabone">List</a> </li>
           <li (click)="changTab(2)" class="nav-item"> <a [ngClass]="(activeTab === 2) ? 'active' : ''" class="nav-link" href="" data-toggle="tab" data-target="#tabtwo">Details</a> </li>
         </ul>
         <div class="tab-content mt-2">
-          <div *ngIf="!studentRole" [ngClass]="(activeTab === 1) ? 'show active' : ''" class="tab-pane fade" id="tabone" role="tabpanel">
+          <div *ngIf="!teacherRole" [ngClass]="(activeTab === 1) ? 'show active' : ''" class="tab-pane fade" id="tabone" role="tabpanel">
             <form>
               <div class="form-group form-inline">
                 <div class="pr-2 text-right" title="Add"><a class="btn btn-success" (click)="checkFormDirty(0)" ><i class="fa fa-plus fa-fw fa-1x py-1"></i></a></div>
@@ -18,8 +18,8 @@
             <table class="table table-striped">
               <thead>
               <tr>
-                <th scope="col">Student</th>
-                <th scope="col">Index number</th>
+                <th scope="col">Teacher</th>
+                <th scope="col">Academic Title</th>
                 <th scope="col">JMBG</th>
                 <th scope="col">Email</th>
                 <th scope="col">Phone number</th>
@@ -29,17 +29,17 @@
               </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let student of studentsListData | filter:searchText" (dblclick)="onStudentSelect(student.id)">
-                <td>{{student.firstName + ' ' +  student.lastName}}</td>
-                <td>{{student.schoolIdNumber}}</td>
-                <td>{{student.personalIdNumber}}</td>
-                <td>{{student.email}}</td>
-                <td>{{student.phoneNumber}}</td>
-                <td>{{student.createdAt | date:'h:mm:ss dd/MM/yyyy'}}</td>
-                <td>{{student.updatedAt | date:'h:mm:ss dd/MM/yyyy'}}</td>
+                <tr *ngFor="let teacher of teachersList | filter:searchText" (dblclick)="onTeacherSelect(teacher.id)">
+                <td>{{teacher.firstName + ' ' +  teacher.lastName}}</td>
+                <td>{{teacher.academicTitle}}</td>
+                <td>{{teacher.personalIdNumber}}</td>
+                <td>{{teacher.email}}</td>
+                <td>{{teacher.phoneNumber}}</td>
+                <td>{{teacher.createdAt | date:'h:mm:ss dd/MM/yyyy'}}</td>
+                <td>{{teacher.updatedAt | date:'h:mm:ss dd/MM/yyyy'}}</td>
                 <td>
-                  <a title="Edit" class="btn btn-info mr-1" (click)="onStudentSelect(student.id)"><i class="fa fa-pencil fa-fw fa-1x py-1"></i></a>
-                  <a title="Delete" class="btn btn-danger" (click)="deleteStudent(student.id)"><i class="fa fa-trash fa-fw fa-1x py-1"></i></a>
+                  <a title="Edit" class="btn btn-info mr-1" (click)="onTeacherSelect(teacher.id)"><i class="fa fa-pencil fa-fw fa-1x py-1"></i></a>
+                  <a title="Delete" class="btn btn-danger" (click)="deleteTeacher(teacher.id)"><i class="fa fa-trash fa-fw fa-1x py-1"></i></a>
               </td>
               </tr>
               </tbody>
@@ -50,11 +50,11 @@
               <div class="card-body w-100 h-100">
                 <div class="row">
                   <div class="col-md-6">
-                    <h5 class="card-title"><b>General student info:</b></h5>
+                    <h5 class="card-title"><b>General teacher info:</b></h5>
                   </div>
-                  <div *ngIf="!studentRole" title="Add" class="col-md-6 text-right"><a class="btn btn-success" (click)="checkFormDirty(0)" ><i class="fa fa-plus fa-fw fa-1x py-1"></i></a></div>
+                  <div *ngIf="!teacherRole" title="Add" class="col-md-6 text-right"><a class="btn btn-success" (click)="checkFormDirty(0)" ><i class="fa fa-plus fa-fw fa-1x py-1"></i></a></div>
                 </div>
-                <form [formGroup]="studentForm">
+                <form [formGroup]="teacherForm">
                   <div class="row">
                     <div class="col-md-3 py-2 d-flex align-items-center justify-content-end border-right"><label>Id:</label></div>
                     <div class="col-md-6 d-flex align-items-center justify-content-start">
@@ -92,9 +92,9 @@
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-md-3 py-2 d-flex align-items-center justify-content-end border-right"><label>Index number:</label></div>
+                    <div class="col-md-3 py-2 d-flex align-items-center justify-content-end border-right"><label>Academic Title:</label></div>
                     <div class="col-md-6 d-flex align-items-center justify-content-start">
-                      <input class="form-control" formControlName="schoolIdNumber" type="text">
+                      <input class="form-control" formControlName="academicTitle" type="text">
                     </div>
                   </div>
                   <div class="row">
@@ -105,7 +105,7 @@
                   </div>
                   <div class="row">
                     <div class="col-md-6"></div>
-                    <div title="Save" class="col-md-6 d-flex justify-content-end align-items-center"><a class="btn btn-info" (click)="saveStudent()" >Save</a></div>
+                    <div title="Save" class="col-md-6 d-flex justify-content-end align-items-center"><a class="btn btn-info" (click)="saveTeacher()" >Save</a></div>
                   </div>
               </form>
               </div>

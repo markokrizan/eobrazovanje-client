@@ -11,18 +11,18 @@ export class NotificationService {
   showSuccess(message: string): void {
     this.zone.run(() => {
       const snackBar = this.popupService.open(message);
-        snackBar.onAction().subscribe(() => {
+      snackBar.onAction().subscribe(() => {
           snackBar.dismiss();
-        })
+        });
       });
   }
 
   showError(message: string): void {
     this.zone.run(() => {
       const snackBar = this.popupService.open(message, 'X', { panelClass: ['error']});
-        snackBar.onAction().subscribe(() => {
+      snackBar.onAction().subscribe(() => {
           snackBar.dismiss();
-        })
+        });
       });
   }
 }

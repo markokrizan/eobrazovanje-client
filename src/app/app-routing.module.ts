@@ -8,6 +8,7 @@ import { PaymentsComponent } from './components/payments/payments.component';
 import { GradesComponent } from './components/grades/grades.component';
 import { ExamRegistrationsComponent } from './components/exam-registrations/exam-registrations.component';
 import { HomeComponent } from './components/home/home.component';
+import { TeacherComponent } from './components/teacher/teacher.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent},
@@ -17,7 +18,8 @@ const routes: Routes = [
   { path: 'documents', component: DocumentsComponent},
   { path: 'payments', component: PaymentsComponent},
   { path: 'grades', component: GradesComponent},
-  { path: 'exam-registrations', component: ExamRegistrationsComponent}
+  { path: 'exam-registrations', component: ExamRegistrationsComponent},
+  { path: 'teacher', component: TeacherComponent}
 ];
 
 @NgModule({

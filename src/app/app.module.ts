@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, ErrorHandler } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -25,9 +25,14 @@ import { RequestTokenInjectorService } from './services/authentication/request-t
 import {  GlobalErrorHandler } from './services/error-service/global-error-handler';
 import { ServerErrorInterceptor } from './services/error-service/server-error-interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DecimalPipe } from '@angular/common';
 import { MatSnackBarModule} from '@angular/material';
 import { HomeComponent } from './components/home/home.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { MatTabsModule } from '@angular/material';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { TeacherComponent } from './components/teacher/teacher.component';
+import { ModelDialogComponent } from './components/model-dialog/model-dialog.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +53,9 @@ import { HomeComponent } from './components/home/home.component';
     DocumentsComponent,
     DocumentItemComponent,
     AddPaymentComponent,
-    HomeComponent
+    HomeComponent,
+    TeacherComponent,
+    ModelDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -57,7 +64,11 @@ import { HomeComponent } from './components/home/home.component';
     FormsModule,
     CommonModule,
     BrowserAnimationsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    NgbModule,
+    ReactiveFormsModule,
+    MatTabsModule,
+    Ng2SearchPipeModule
   ],
   providers: [
     {
@@ -74,7 +85,9 @@ import { HomeComponent } from './components/home/home.component';
       provide : ErrorHandler,
       useClass: GlobalErrorHandler
     },
+    DecimalPipe
   ],
+  entryComponents: [ModelDialogComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

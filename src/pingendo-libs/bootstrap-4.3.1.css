@@ -5305,7 +5305,7 @@ a.badge-dark.focus {
 }
 
 .list-group-flush:last-child .list-group-item:last-child {
-  margin-bottom: 0;
+  margin-bottom: 15px;
   border-bottom: 0;
 }
 
@@ -9635,13 +9635,14 @@ a.text-dark:focus {
 .content-wrapper-height {
   height: calc(100vh - 69px);
 }
-.list-group-item:focus,
-.list-group-item:hover,
-.list-group-item:active {
-  background-color: #dddddd;
-  outline: none;
-}
 .container.container-wrapper {
   margin-right: 0;
   margin-left: 0;
+  max-width: 100%;
+}
+.card.card-fix {
+  border: none;
+}
+.padding-bottom-15 {
+  padding-bottom: 15px;
 }

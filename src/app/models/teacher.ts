@@ -1,11 +1,11 @@
 import Role from './role';
 
-export default interface Student {
+export default interface Teacher {
   id: number;
   firstName: string;
   lastName: string;
   personalIdNumber: string;
-  schoolIdNumber: string;
+  academicTitle: string;
   phoneNumber: string;
   email: boolean;
   role: Role;
