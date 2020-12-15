@@ -21,8 +21,7 @@
                 <th scope="col">Student</th>
                 <th scope="col">Index number</th>
                 <th scope="col">JMBG</th>
-                <th scope="col">Email</th>
-                <th scope="col">Phone number</th>
+                <th scope="col">Study Program</th>
                 <th scope="col">Created at </th>
                 <th scope="col">Updated at</th>
                 <th scope="col"></th>
@@ -33,8 +32,7 @@
                 <td>{{student.firstName + ' ' +  student.lastName}}</td>
                 <td>{{student.schoolIdNumber}}</td>
                 <td>{{student.personalIdNumber}}</td>
-                <td>{{student.email}}</td>
-                <td>{{student.phoneNumber}}</td>
+                <td>{{student.studyProgram.name}}</td>
                 <td>{{student.createdAt | date:'h:mm:ss dd/MM/yyyy'}}</td>
                 <td>{{student.updatedAt | date:'h:mm:ss dd/MM/yyyy'}}</td>
                 <td>
@@ -92,9 +90,17 @@
                     </div>
                   </div>
                   <div class="row">
+                    <div class="col-md-3 py-2 d-flex align-items-center justify-content-end border-right"><label>Study program:</label></div>
+                    <div class="col-md-6 d-flex align-items-center justify-content-start">
+                      <select class="form-control" formControlName="studyProgram">
+                        <option *ngFor="let studyProgram of studyProgramsList" [ngValue]="studyProgram.id">{{studyProgram.name}}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row">
                     <div class="col-md-3 py-2 d-flex align-items-center justify-content-end border-right"><label>Index number:</label></div>
                     <div class="col-md-6 d-flex align-items-center justify-content-start">
-                      <input class="form-control" formControlName="schoolIdNumber" type="text">
+                      <input class="form-control" formControlName="schoolIdNumber" type="text" readonly>
                     </div>
                   </div>
                   <div class="row">

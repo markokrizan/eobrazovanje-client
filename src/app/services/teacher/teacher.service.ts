@@ -28,11 +28,19 @@ export class TeacherService {
     )
   : Observable<any> {
     const headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post(
-      this.teachersPath,
-      JSON.stringify({ academicTitle, email, firstName, id, lastName, personalIdNumber, phoneNumber, username })
-      , { headers }
-    );
+    if (id === 0) {
+      return this.http.post(
+        this.teachersPath,
+        JSON.stringify({ academicTitle, email, firstName, lastName, personalIdNumber, phoneNumber, username })
+        , { headers }
+      );
+    } else {
+      return this.http.post(
+        this.teachersPath,
+        JSON.stringify({ academicTitle, email, firstName, id, lastName, personalIdNumber, phoneNumber, username })
+        , { headers }
+      );
+    }
   }
 
   deleteTeacher( id: any): Observable<any> {

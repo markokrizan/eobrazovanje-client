@@ -45,12 +45,15 @@ export class TeacherComponent implements OnInit, OnDestroy {
     if (this.currentUser.roles == 'ROLE_TEACHER') {
       this.changTab(2);
       this.teacherRole = true;
-      this.getTeacher(this.currentUser.id);
+      this.getTeacherStorage();
+      if (this.dirty !== true) {
+        this.getTeacher(this.currentUser.id);
+      }
     } else {
       this.getTeacherList();
+      this.getTeacherStorage();
     }
 
-    this.getTeacherStorage();
 
     this.subscription = this.teacherForm.valueChanges.subscribe(x => {
       this.dirty = true;

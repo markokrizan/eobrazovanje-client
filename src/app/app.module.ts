@@ -33,6 +33,7 @@ import { MatTabsModule } from '@angular/material';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { TeacherComponent } from './components/teacher/teacher.component';
 import { ModelDialogComponent } from './components/model-dialog/model-dialog.component';
+import { StudyProgramsComponent } from './components/study-programs/study-programs.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { ModelDialogComponent } from './components/model-dialog/model-dialog.com
     AddPaymentComponent,
     HomeComponent,
     TeacherComponent,
-    ModelDialogComponent
+    ModelDialogComponent,
+    StudyProgramsComponent
   ],
   imports: [
     BrowserModule,

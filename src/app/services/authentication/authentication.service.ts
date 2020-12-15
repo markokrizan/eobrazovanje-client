@@ -29,13 +29,18 @@ export class AuthenticationService {
           return false;
         }
 
+        const lastUserId = JSON.parse(localStorage.getItem('lastUserId'));
+        if ( lastUserId !== undefined && lastUserId !== this.jwtUtilsService.getId(token)) {
+          localStorage.clear();
+          sessionStorage.clear();
+        }
+
         localStorage.setItem('currentUser', JSON.stringify({
           id: this.jwtUtilsService.getId(token),
           username,
           roles: this.jwtUtilsService.getRoles(token),
           token
         }));
-        localStorage.setItem('userRole', this.jwtUtilsService.getRoles(token));
 
         return true;
       }));
@@ -48,7 +53,9 @@ export class AuthenticationService {
   }
 
   logout(): void {
+    const user = this.getCurrentUser();
     localStorage.removeItem('currentUser');
+    localStorage.setItem('lastUserId', JSON.stringify(user.id));
   }
 
   isLoggedIn(): boolean {

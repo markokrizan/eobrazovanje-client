@@ -25,15 +25,23 @@ export class StudentService {
   }
 
   saveStudent(
-      email: any, firstName: any, id: any, lastName: any, personalIdNumber: any, phoneNumber: any, schoolIdNumber: any, username: any
+      email: any, firstName: any, id: any, lastName: any, personalIdNumber: any, phoneNumber: any, studyProgram: any, username: any
     )
   : Observable<any> {
     const headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post(
-      this.studentsPath,
-      JSON.stringify({ email, firstName, id, lastName, personalIdNumber, phoneNumber, schoolIdNumber, username })
-      , { headers }
-    );
+    if (id === 0) {
+      return this.http.post(
+        this.studentsPath,
+        JSON.stringify({ email, firstName, lastName, personalIdNumber, phoneNumber, studyProgram, username })
+        , { headers }
+      );
+    } else {
+      return this.http.post(
+        this.studentsPath,
+        JSON.stringify({ email, firstName, id, lastName, personalIdNumber, phoneNumber, studyProgram, username })
+        , { headers }
+      );
+    }
   }
 
   deleteStudent( id: any): Observable<any> {

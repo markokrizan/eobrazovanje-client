@@ -15,8 +15,8 @@ export class MainMenuComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.currentUser = localStorage.getItem('currentUser');
-    this.userRole = localStorage.getItem('userRole');
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    this.userRole = this.currentUser.roles[0];
   }
 
 }

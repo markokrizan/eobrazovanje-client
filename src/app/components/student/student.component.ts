@@ -6,6 +6,7 @@ import Student from 'src/app/models/student';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 import { NotificationService } from 'src/app/services/notification-service/notification-service';
 import { StudentService } from 'src/app/services/student/student.service';
+import { StudyProgramService } from 'src/app/services/study-program/study-program.service';
 import { ModelDialogComponent } from '../model-dialog/model-dialog.component';
 
 @Component({
@@ -26,10 +27,12 @@ export class StudentComponent implements OnInit, OnDestroy {
   public studentForm: FormGroup;
   private subscription: Subscription;
   dirty = false;
+  studyProgramsList: any;
 
   constructor(
     private authenticationService: AuthenticationService,
     private studentService: StudentService,
+    private studyProgramService: StudyProgramService,
     private modalService: NgbModal,
     private toastr: NotificationService
     ) {
@@ -44,15 +47,19 @@ export class StudentComponent implements OnInit, OnDestroy {
 
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
+    this.getStudyProgramList();
+
     if (this.currentUser.roles == 'ROLE_STUDENT') {
       this.changTab(2);
       this.studentRole = true;
-      this.getStudent(this.currentUser.id);
+      this.getStudentStorage();
+      if (this.dirty !== true) {
+        this.getStudent(this.currentUser.id);
+      }
     } else {
       this.getStudentList();
+      this.getStudentStorage();
     }
-
-    this.getStudentStorage();
 
     this.subscription = this.studentForm.valueChanges.subscribe(x => {
       this.dirty = true;
@@ -70,7 +77,8 @@ export class StudentComponent implements OnInit, OnDestroy {
       phoneNumber: new FormControl(''),
       schoolIdNumber: new FormControl(''),
       email: new FormControl(''),
-      username: new FormControl('', Validators.required)
+      username: new FormControl('', Validators.required),
+      studyProgram: new FormControl('', Validators.required)
    });
   }
 
@@ -99,12 +107,19 @@ export class StudentComponent implements OnInit, OnDestroy {
     );
   }
 
+  getStudyProgramList() {
+    this.studyProgramService.getStudyPrograms().subscribe((resp) => {
+        this.studyProgramsList = resp.content;
+      }
+    );
+  }
+
 
   saveStudent() {
     if (this.studentForm.valid) {
       const data = this.prepareData();
       this.studentService.saveStudent(
-        data.email, data.firstName, data.id, data.lastName, data.personalIdNumber, data.schoolIdNumber, data.phoneNumber, data.username
+        data.email, data.firstName, data.id, data.lastName, data.personalIdNumber, data.phoneNumber, data.studyProgram, data.username
         ).subscribe(
         resp => {
           this.setFormValue(resp);
@@ -133,6 +148,13 @@ export class StudentComponent implements OnInit, OnDestroy {
 
   prepareData() {
     const data = this.studentForm.value;
+    for (const prop in this.studyProgramsList) {
+      if (prop !== undefined) {
+        if (this.studyProgramsList[prop].id === data.studyProgram) {
+          data.studyProgram = this.studyProgramsList[prop];
+        }
+      }
+    }
     return data;
   }
 
@@ -145,6 +167,8 @@ export class StudentComponent implements OnInit, OnDestroy {
     this.studentForm.controls.phoneNumber.setValue(data.phoneNumber);
     this.studentForm.controls.schoolIdNumber.setValue(data.schoolIdNumber);
     this.studentForm.controls.email.setValue(data.email);
+    this.studentForm.controls.studyProgram.setValue(data.studyProgram);
+    this.studentForm.get('studyProgram').patchValue(data.studyProgram.id);
   }
 
   resetForm() {
@@ -156,6 +180,7 @@ export class StudentComponent implements OnInit, OnDestroy {
     this.studentForm.controls.phoneNumber.setValue('');
     this.studentForm.controls.schoolIdNumber.setValue('');
     this.studentForm.controls.email.setValue('');
+    this.studentForm.controls.studyProgram.setValue('');
     if (this.activeTab !== 2) {
       this.changTab(2);
     }
