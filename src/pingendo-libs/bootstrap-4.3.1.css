@@ -9646,3 +9646,23 @@ a.text-dark:focus {
 .padding-bottom-15 {
   padding-bottom: 15px;
 }
+
+.padding-lr {
+  padding: 0 15px;
+}
+
+.form-control.multiselect-style {
+  padding: 0;
+}
+
+.multiselect-style .ng-select-container {
+  width: 100%;
+  padding: 0;
+  height: 100%;
+}
+.multiselect-style .ng-select-container .ng-clear-wrapper {
+  display: none;
+}
+.multiselect-style .ng-select-container .ng-arrow-wrapper {
+  display: none;
+}

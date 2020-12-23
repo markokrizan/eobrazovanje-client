@@ -22,6 +22,7 @@
                 <th scope="col">Name</th>
                 <th scope="col">Prefix</th>
                 <th scope="col">Study field</th>
+                <th scope="col">Study program type</th>
                 <th scope="col"></th>
               </tr>
               </thead>
@@ -31,6 +32,7 @@
                 <td>{{studyProgram.name}}</td>
                 <td>{{studyProgram.prefix}}</td>
                 <td>{{studyProgram.studyField}}</td>
+                <td>{{studyProgram.studyProgramType}}</td>
                 <td>
                   <a title="Edit" class="btn btn-info mr-1" (click)="onStudyProgramSelect(studyProgram.id)"><i class="fa fa-pencil fa-fw fa-1x py-1"></i></a>
                   <a title="Delete" class="btn btn-danger" (click)="deleteStudyProgram(studyProgram.id)"><i class="fa fa-trash fa-fw fa-1x py-1"></i></a>
@@ -71,6 +73,37 @@
                     <div class="col-md-3 py-2 d-flex align-items-center justify-content-end border-right"><label>Study field:</label></div>
                     <div class="col-md-6 d-flex align-items-center justify-content-start">
                       <input class="form-control" formControlName="studyField" type="text">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-3 py-2 d-flex align-items-center justify-content-end border-right"><label>ESPB points:</label></div>
+                    <div class="col-md-6 d-flex align-items-center justify-content-start">
+                      <input class="form-control" formControlName="espbPoints" type="number">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-3 py-2 d-flex align-items-center justify-content-end border-right"><label>Study program type:</label></div>
+                    <div class="col-md-6 d-flex align-items-center justify-content-start">
+                      <select class="form-control" formControlName="studyProgramType">
+                        <option *ngFor="let studyProgramType of studyProgramTypes | keyvalue" [ngValue]="studyProgramType.value">{{studyProgramType.value}}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-3 py-2 d-flex align-items-center justify-content-end border-right"><label>Courses:</label></div>
+                    <div class="col-md-6 d-flex align-items-center justify-content-start">
+                      <ng-select
+                        [items]="coursesList"
+                        style="font-family: roboto"
+                        class="form-control multiselect-style"
+                        [searchable]="true"
+                        bindLabel="name"
+                        appendTo="body"
+                        multiple="true"
+                        [closeOnSelect]="false"
+                        formControlName="courses"
+                      >
+                      </ng-select>
                     </div>
                   </div>
                   <div class="row">

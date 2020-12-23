@@ -93,7 +93,7 @@
                     <div class="col-md-3 py-2 d-flex align-items-center justify-content-end border-right"><label>Study program:</label></div>
                     <div class="col-md-6 d-flex align-items-center justify-content-start">
                       <select class="form-control" formControlName="studyProgram">
-                        <option *ngFor="let studyProgram of studyProgramsList" [ngValue]="studyProgram.id">{{studyProgram.name}}</option>
+                        <option *ngFor="let studyProgram of studyProgramsList" [ngValue]="studyProgram.id" valuePrimitive="true">{{studyProgram.name}}</option>
                       </select>
                     </div>
                   </div>

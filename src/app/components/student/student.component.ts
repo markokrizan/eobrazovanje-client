@@ -118,12 +118,16 @@ export class StudentComponent implements OnInit, OnDestroy {
   saveStudent() {
     if (this.studentForm.valid) {
       const data = this.prepareData();
+      data.studyProgram = {
+        'id': data.studyProgram
+      };
       this.studentService.saveStudent(
         data.email, data.firstName, data.id, data.lastName, data.personalIdNumber, data.phoneNumber, data.studyProgram, data.username
         ).subscribe(
         resp => {
           this.setFormValue(resp);
           if (this.currentUser.roles != 'ROLE_STUDENT') {
+            this.toastr.showSuccess('Uspešno sačuvano!');
             this.getStudentList();
           }
           this.dirty = false;
@@ -148,13 +152,6 @@ export class StudentComponent implements OnInit, OnDestroy {
 
   prepareData() {
     const data = this.studentForm.value;
-    for (const prop in this.studyProgramsList) {
-      if (prop !== undefined) {
-        if (this.studyProgramsList[prop].id === data.studyProgram) {
-          data.studyProgram = this.studyProgramsList[prop];
-        }
-      }
-    }
     return data;
   }
 

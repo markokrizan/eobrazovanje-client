@@ -34,6 +34,8 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { TeacherComponent } from './components/teacher/teacher.component';
 import { ModelDialogComponent } from './components/model-dialog/model-dialog.component';
 import { StudyProgramsComponent } from './components/study-programs/study-programs.component';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { EngagementsComponent } from './components/engagements/engagements.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +59,8 @@ import { StudyProgramsComponent } from './components/study-programs/study-progra
     HomeComponent,
     TeacherComponent,
     ModelDialogComponent,
-    StudyProgramsComponent
+    StudyProgramsComponent,
+    EngagementsComponent
   ],
   imports: [
     BrowserModule,
@@ -70,7 +73,8 @@ import { StudyProgramsComponent } from './components/study-programs/study-progra
     NgbModule,
     ReactiveFormsModule,
     MatTabsModule,
-    Ng2SearchPipeModule
+    Ng2SearchPipeModule,
+    NgSelectModule
   ],
   providers: [
     {

@@ -10,6 +10,7 @@ import { ExamRegistrationsComponent } from './components/exam-registrations/exam
 import { HomeComponent } from './components/home/home.component';
 import { TeacherComponent } from './components/teacher/teacher.component';
 import { StudyProgramsComponent } from './components/study-programs/study-programs.component';
+import { EngagementsComponent } from './components/engagements/engagements.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent},
@@ -21,7 +22,8 @@ const routes: Routes = [
   { path: 'grades', component: GradesComponent},
   { path: 'exam-registrations', component: ExamRegistrationsComponent},
   { path: 'teacher', component: TeacherComponent},
-  { path: 'study-programs', component: StudyProgramsComponent}
+  { path: 'study-programs', component: StudyProgramsComponent},
+  { path: 'engagements', component: EngagementsComponent}
 ];
 
 @NgModule({
