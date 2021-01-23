@@ -1,8 +1,11 @@
+import { Years } from './student';
+
 export default interface Courses {
   espbPoints: number;
   id: number;
   name: string;
   semester: Semester;
+  year: Years;
 }
 
 export enum Semester {

@@ -112,7 +112,7 @@ export class StudyProgramsComponent implements OnInit, OnDestroy {
         resp => {
           this.setFormValue(resp);
           if (this.currentUser.roles != 'ROLE_STUDENT') {
-            this.toastr.showSuccess('Uspešno sačuvano!');
+            this.toastr.showSuccess('Successfully saved!');
             this.getStudyProgramList();
           }
           this.dirty = false;

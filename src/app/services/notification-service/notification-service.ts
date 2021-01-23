@@ -10,7 +10,7 @@ export class NotificationService {
 
   showSuccess(message: string): void {
     this.zone.run(() => {
-      const snackBar = this.popupService.open(message);
+      const snackBar = this.popupService.open(message, 'X');
       snackBar.onAction().subscribe(() => {
           snackBar.dismiss();
         });

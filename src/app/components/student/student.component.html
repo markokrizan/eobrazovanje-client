@@ -110,6 +110,22 @@
                     </div>
                   </div>
                   <div class="row">
+                    <div class="col-md-3 py-2 d-flex align-items-center justify-content-end border-right"><label>Study year:</label></div>
+                    <div class="col-md-6 d-flex align-items-center justify-content-start">
+                      <select class="form-control" formControlName="currentStudyYear">
+                        <option *ngFor="let currentStudyYear of yearsList | keyvalue" [ngValue]="currentStudyYear.value">{{currentStudyYear.value}}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-3 py-2 d-flex align-items-center justify-content-end border-right"><label>Financial status:</label></div>
+                    <div class="col-md-6 d-flex align-items-center justify-content-start">
+                      <select class="form-control" formControlName="financialStatus">
+                        <option *ngFor="let financialStatus of financialStatusList | keyvalue" [ngValue]="financialStatus.value">{{financialStatus.value}}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row">
                     <div class="col-md-6"></div>
                     <div title="Save" class="col-md-6 d-flex justify-content-end align-items-center"><a class="btn btn-info" (click)="saveStudent()" >Save</a></div>
                   </div>

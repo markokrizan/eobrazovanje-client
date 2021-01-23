@@ -3,6 +3,7 @@ import { FormControl, FormGroup, ValidationErrors, Validators } from '@angular/f
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
 import Courses, { Semester } from 'src/app/models/courses';
+import { Years } from 'src/app/models/student';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 import { CoursesService } from 'src/app/services/courses/courses.service';
 import { NotificationService } from 'src/app/services/notification-service/notification-service';
@@ -16,6 +17,7 @@ import { ModelDialogComponent } from '../model-dialog/model-dialog.component';
 export class CoursesComponent implements OnInit, OnDestroy {
   course: Courses;
   semesters = Semester;
+  yearsList = Years;
   searchText;
   activeTab = 1;
   coursesList; any;
@@ -58,7 +60,8 @@ export class CoursesComponent implements OnInit, OnDestroy {
       id: new FormControl(0),
       espbPoints: new FormControl('', Validators.required),
       name: new FormControl('', Validators.required),
-      semester: new FormControl('', Validators.required)
+      semester: new FormControl('', Validators.required),
+      year: new FormControl('', Validators.required)
    });
   }
 
@@ -91,11 +94,11 @@ export class CoursesComponent implements OnInit, OnDestroy {
   saveCourse() {
     if (this.courseForm.valid) {
       const data = this.prepareData();
-      this.coursesService.saveCourse(data.espbPoints, data.id, data.name, data.semester).subscribe(
+      this.coursesService.saveCourse(data.espbPoints, data.id, data.name, data.semester, data.year).subscribe(
         resp => {
           this.setFormValue(resp);
           if (this.currentUser.roles != 'ROLE_STUDENT') {
-            this.toastr.showSuccess('Uspešno sačuvano!');
+            this.toastr.showSuccess('Successfully saved!');
             this.getCourses();
           }
           this.dirty = false;
@@ -128,6 +131,7 @@ export class CoursesComponent implements OnInit, OnDestroy {
     this.courseForm.controls.id.setValue(data.id);
     this.courseForm.controls.name.setValue(data.name);
     this.courseForm.controls.semester.setValue(data.semester);
+    this.courseForm.controls.year.setValue(data.year);
   }
 
   resetForm() {
@@ -135,6 +139,7 @@ export class CoursesComponent implements OnInit, OnDestroy {
     this.courseForm.controls.id.setValue(0);
     this.courseForm.controls.name.setValue('');
     this.courseForm.controls.semester.setValue('');
+    this.courseForm.controls.year.setValue('');
     if (this.activeTab !== 2) {
       this.changTab(2);
     }

@@ -24,11 +24,11 @@ export class CoursesService {
     return this.http.get<any>(this.coursePath);
   }
 
-  saveCourse(espbPoints: any, id: any, name: any, semester: any): Observable<any> {
+  saveCourse(espbPoints: any, id: any, name: any, semester: any, year: any): Observable<any> {
     const headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post(
       this.coursePath,
-      JSON.stringify({ espbPoints, id, name, semester })
+      JSON.stringify({ espbPoints, id, name, semester, year})
       , { headers }
     );
   }

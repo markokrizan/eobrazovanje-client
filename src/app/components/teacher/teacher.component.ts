@@ -109,7 +109,7 @@ export class TeacherComponent implements OnInit, OnDestroy {
         resp => {
           this.setFormValue(resp);
           if (this.currentUser.roles != 'ROLE_TEACHER') {
-            this.toastr.showSuccess('Uspešno sačuvano!');
+            this.toastr.showSuccess('Successfully saved!');
             this.getTeacherList();
           }
           this.dirty = false;

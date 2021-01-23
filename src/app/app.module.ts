@@ -8,15 +8,14 @@ import { HeaderComponent } from './components/header/header.component';
 import { MainMenuComponent } from './components/main-menu/main-menu.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
-import { MenuItemComponent } from './components/menu-item/menu-item.component';
 import { StudentComponent } from './components/student/student.component';
 import { CoursesComponent } from './components/courses/courses.component';
 import { PaymentsComponent } from './components/payments/payments.component';
 import { GradesComponent } from './components/grades/grades.component';
-import { ExamRegistrationsComponent } from './components/exam-registrations/exam-registrations.component';
+import { ExamCancellationComponent } from './components/exam-cancellation/exam-cancellation.component';
 import { RegisterExamComponent } from './components/register-exam/register-exam.component';
 import { ExamRegistrationHistoryComponent } from './components/exam-registration-history/exam-registration-history.component';
-import { ActiveTermComponent } from './components/active-term/active-term.component';
+import { TermComponent } from './components/term/term.component';
 import { DocumentsComponent } from './components/documents/documents.component';
 import { DocumentItemComponent } from './components/document-item/document-item.component';
 import { AddPaymentComponent } from './components/add-payment/add-payment.component';
@@ -36,6 +35,7 @@ import { ModelDialogComponent } from './components/model-dialog/model-dialog.com
 import { StudyProgramsComponent } from './components/study-programs/study-programs.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { EngagementsComponent } from './components/engagements/engagements.component';
+import { ExamComponent } from './components/exam/exam.component';
 
 @NgModule({
   declarations: [
@@ -44,15 +44,14 @@ import { EngagementsComponent } from './components/engagements/engagements.compo
     MainMenuComponent,
     LoginComponent,
     RegisterComponent,
-    MenuItemComponent,
     StudentComponent,
     CoursesComponent,
     PaymentsComponent,
     GradesComponent,
-    ExamRegistrationsComponent,
+    ExamCancellationComponent,
     RegisterExamComponent,
     ExamRegistrationHistoryComponent,
-    ActiveTermComponent,
+    TermComponent,
     DocumentsComponent,
     DocumentItemComponent,
     AddPaymentComponent,
@@ -60,7 +59,8 @@ import { EngagementsComponent } from './components/engagements/engagements.compo
     TeacherComponent,
     ModelDialogComponent,
     StudyProgramsComponent,
-    EngagementsComponent
+    EngagementsComponent,
+    ExamComponent
   ],
   imports: [
     BrowserModule,

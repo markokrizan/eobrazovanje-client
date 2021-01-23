@@ -2,7 +2,7 @@ import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
-import Student from 'src/app/models/student';
+import Student, { FinancialStatus, Years } from 'src/app/models/student';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 import { NotificationService } from 'src/app/services/notification-service/notification-service';
 import { StudentService } from 'src/app/services/student/student.service';
@@ -18,6 +18,8 @@ export class StudentComponent implements OnInit, OnDestroy {
 
 
   student: Student;
+  yearsList = Years;
+  financialStatusList = FinancialStatus;
   searchText;
   activeTab = 1;
   studentsList; any;
@@ -78,7 +80,9 @@ export class StudentComponent implements OnInit, OnDestroy {
       schoolIdNumber: new FormControl(''),
       email: new FormControl(''),
       username: new FormControl('', Validators.required),
-      studyProgram: new FormControl('', Validators.required)
+      studyProgram: new FormControl('', Validators.required),
+      currentStudyYear: new FormControl('', Validators.required),
+      financialStatus: new FormControl('', Validators.required)
    });
   }
 
@@ -122,12 +126,13 @@ export class StudentComponent implements OnInit, OnDestroy {
         'id': data.studyProgram
       };
       this.studentService.saveStudent(
-        data.email, data.firstName, data.id, data.lastName, data.personalIdNumber, data.phoneNumber, data.studyProgram, data.username
+          data.email, data.firstName, data.id, data.lastName, data.personalIdNumber, data.phoneNumber,
+          data.studyProgram, data.username, data.currentStudyYear, data.financialStatus
         ).subscribe(
         resp => {
           this.setFormValue(resp);
           if (this.currentUser.roles != 'ROLE_STUDENT') {
-            this.toastr.showSuccess('Uspešno sačuvano!');
+            this.toastr.showSuccess('Successfully saved!');
             this.getStudentList();
           }
           this.dirty = false;
@@ -164,8 +169,13 @@ export class StudentComponent implements OnInit, OnDestroy {
     this.studentForm.controls.phoneNumber.setValue(data.phoneNumber);
     this.studentForm.controls.schoolIdNumber.setValue(data.schoolIdNumber);
     this.studentForm.controls.email.setValue(data.email);
-    this.studentForm.controls.studyProgram.setValue(data.studyProgram);
-    this.studentForm.get('studyProgram').patchValue(data.studyProgram.id);
+    if (data.studyProgram.id !== undefined && data.studyProgram.id !== null) {
+      this.studentForm.get('studyProgram').patchValue(data.studyProgram.id);
+    } else {
+      this.studentForm.controls.studyProgram.setValue(data.studyProgram);
+    }
+    this.studentForm.controls.currentStudyYear.setValue(data.currentStudyYear);
+    this.studentForm.controls.financialStatus.setValue(data.financialStatus);
   }
 
   resetForm() {
@@ -178,6 +188,8 @@ export class StudentComponent implements OnInit, OnDestroy {
     this.studentForm.controls.schoolIdNumber.setValue('');
     this.studentForm.controls.email.setValue('');
     this.studentForm.controls.studyProgram.setValue('');
+    this.studentForm.controls.currentStudyYear.setValue('');
+    this.studentForm.controls.financialStatus.setValue('');
     if (this.activeTab !== 2) {
       this.changTab(2);
     }

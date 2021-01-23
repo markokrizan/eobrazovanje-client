@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
@@ -15,7 +15,7 @@ import { ModelDialogComponent } from '../model-dialog/model-dialog.component';
   templateUrl: './engagements.component.html',
   // styleUrls: ['./engagements.component.css']
 })
-export class EngagementsComponent implements OnInit {
+export class EngagementsComponent implements OnInit, OnDestroy {
 
   engagements: Engagements;
   engagementTypes = EngagementType;
@@ -120,7 +120,7 @@ export class EngagementsComponent implements OnInit {
         resp => {
           this.setFormValue(resp);
           if (this.currentUser.roles != 'ROLE_STUDENT') {
-            this.toastr.showSuccess('Uspešno sačuvano!');
+            this.toastr.showSuccess('Successfully saved!');
             this.getEngagements();
           }
           this.dirty = false;
