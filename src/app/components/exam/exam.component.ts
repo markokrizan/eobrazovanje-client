@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { NgbCalendar, NgbDate, NgbDateParserFormatter, NgbDateStruct, NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
 import { CoursesService } from 'src/app/services/courses/courses.service';
@@ -35,7 +36,8 @@ export class ExamComponent implements OnInit, OnDestroy {
     private coursesService: CoursesService,
     private termService: TermService,
     private calendar: NgbCalendar,
-    private parserFormatter: NgbDateParserFormatter
+    private parserFormatter: NgbDateParserFormatter,
+    private route: Router
     ) {
       this.selectedDate = this.calendar.getToday();
     }
@@ -45,12 +47,13 @@ export class ExamComponent implements OnInit, OnDestroy {
 
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
-    if (this.currentUser.roles == 'ROLE_ADMIN') {
-      this.adminRole = true;
+    if (this.currentUser.roles != 'ROLE_STUDENT') {
       this.getExams();
       this.getTermsList();
       this.getCoursesList();
       this.getExamStorage();
+    } else {
+      this.route.navigate(['']);
     }
 
 

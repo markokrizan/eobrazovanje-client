@@ -6,7 +6,7 @@ import { CoursesComponent } from './components/courses/courses.component';
 import { DocumentsComponent } from './components/documents/documents.component';
 import { PaymentsComponent } from './components/payments/payments.component';
 import { GradesComponent } from './components/grades/grades.component';
-import { ExamCancellationComponent } from './components/exam-cancellation/exam-cancellation.component';
+import { ExamGradeComponent } from './components/exam-grade/exam-grade.component';
 import { HomeComponent } from './components/home/home.component';
 import { TeacherComponent } from './components/teacher/teacher.component';
 import { StudyProgramsComponent } from './components/study-programs/study-programs.component';
@@ -24,7 +24,7 @@ const routes: Routes = [
   { path: 'payments', component: PaymentsComponent},
   { path: 'grades', component: GradesComponent},
   { path: 'exam-registrations', component: RegisterExamComponent},
-  { path: 'exam-cancellation', component: ExamCancellationComponent},
+  { path: 'exam-grade', component: ExamGradeComponent},
   { path: 'teacher', component: TeacherComponent},
   { path: 'study-programs', component: StudyProgramsComponent},
   { path: 'engagements', component: EngagementsComponent},

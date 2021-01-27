@@ -7,12 +7,11 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { MainMenuComponent } from './components/main-menu/main-menu.component';
 import { LoginComponent } from './components/login/login.component';
-import { RegisterComponent } from './components/register/register.component';
 import { StudentComponent } from './components/student/student.component';
 import { CoursesComponent } from './components/courses/courses.component';
 import { PaymentsComponent } from './components/payments/payments.component';
 import { GradesComponent } from './components/grades/grades.component';
-import { ExamCancellationComponent } from './components/exam-cancellation/exam-cancellation.component';
+import { ExamGradeComponent } from './components/exam-grade/exam-grade.component';
 import { RegisterExamComponent } from './components/register-exam/register-exam.component';
 import { ExamRegistrationHistoryComponent } from './components/exam-registration-history/exam-registration-history.component';
 import { TermComponent } from './components/term/term.component';
@@ -36,6 +35,7 @@ import { StudyProgramsComponent } from './components/study-programs/study-progra
 import { NgSelectModule } from '@ng-select/ng-select';
 import { EngagementsComponent } from './components/engagements/engagements.component';
 import { ExamComponent } from './components/exam/exam.component';
+import { AdminComponent } from './components/admin/admin.component';
 
 @NgModule({
   declarations: [
@@ -43,12 +43,11 @@ import { ExamComponent } from './components/exam/exam.component';
     HeaderComponent,
     MainMenuComponent,
     LoginComponent,
-    RegisterComponent,
     StudentComponent,
     CoursesComponent,
     PaymentsComponent,
     GradesComponent,
-    ExamCancellationComponent,
+    ExamGradeComponent,
     RegisterExamComponent,
     ExamRegistrationHistoryComponent,
     TermComponent,
@@ -60,7 +59,8 @@ import { ExamComponent } from './components/exam/exam.component';
     ModelDialogComponent,
     StudyProgramsComponent,
     EngagementsComponent,
-    ExamComponent
+    ExamComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,

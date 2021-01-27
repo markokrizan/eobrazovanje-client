@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ExamRegistrationService } from 'src/app/services/exam-registration/exam-registration.service';
 import { NotificationService } from 'src/app/services/notification-service/notification-service';
 
@@ -20,6 +21,7 @@ export class RegisterExamComponent implements OnInit {
   constructor(
     private examRegistrationService: ExamRegistrationService,
     private toastr: NotificationService,
+    private route: Router
     ) {
     }
 
@@ -30,8 +32,9 @@ export class RegisterExamComponent implements OnInit {
     if (this.currentUser.roles == 'ROLE_STUDENT') {
       this.studentRole = true;
       this.getExamRegistrations();
+    } else {
+      this.route.navigate(['']);
     }
-
 
   }
 
@@ -48,12 +51,11 @@ export class RegisterExamComponent implements OnInit {
 
   saveExamRegistration(id: any) {
     const exam = { 'id': id};
-    this.examRegistrationService.saveExamRegistration(exam, this.currentUser.id).subscribe(
+    const student = { 'id': Number(this.currentUser.id)};
+    this.examRegistrationService.saveExamRegistration(exam, student).subscribe(
       resp => {
-        if (this.studentRole) {
-          this.toastr.showSuccess('Successfully registered!');
-          this.getExamRegistrations();
-        }
+        this.toastr.showSuccess('Successfully registered!');
+        this.getExamRegistrations();
         this.dirty = false;
         sessionStorage.setItem('termFormDirty', JSON.stringify(this.dirty));
       }

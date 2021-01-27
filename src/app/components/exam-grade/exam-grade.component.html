@@ -18,19 +18,27 @@
               <tr>
                 <th scope="col">Term</th>
                 <th scope="col">Course</th>
-                <th scope="col">Location</th>
-                <th scope="col">Date</th>
+                <th scope="col">Student</th>
+                <th scope="col">Exam date</th>
+                <th scope="col">Exam grade</th>
                 <th scope="col"></th>
               </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let exam of examRegistrationList | filter:searchText">
-                  <td>{{ exam.term.name }}</td>
-                  <td>{{ exam.course.name }}</td>
-                  <td>{{ exam.location }}</td>
-                  <td>{{ exam.examDate | date }}</td>
+                <tr *ngFor="let grade of examGradeList | filter:searchText">
+                  <td>{{ grade.exam.term.name }}</td>
+                  <td>{{ grade.exam.course.name }}</td>
+                  <td>{{ grade.student.firstName + ' ' + grade.student.lastName }}</td>
+                  <td>{{ grade.exam.examDate | date }}</td>
                   <td>
-                    <a title="Register" class="btn btn-info mr-1" (click)="saveExamRegistration(exam.id)"><i class="fa fa-pencil fa-fw fa-1x py-1"></i></a>
+                    <div class="row pr-2">
+                      <select class="form-control" [(ngModel)]="selectedGrade" [ngModelOptions]="{standalone: true}">
+                        <option *ngFor="let grade of gradeType | keyvalue" [ngValue]="grade.value">{{ grade.value }}</option>
+                      </select>
+                    </div>
+                  </td>
+                  <td>
+                    <a title="Save grade" class="btn btn-info mr-1 {{selectedGrade === undefined ? ' disabled' : ''}}" (click)="checkSaveStatus(grade)"><i class="fa fa-floppy-o fa-fw fa-1x py-1"></i></a>
                   </td>
                 </tr>
               </tbody>
