@@ -31,7 +31,6 @@ export class EngagementsComponent implements OnInit, OnDestroy {
   teachersList: any;
 
   constructor(
-    private authenticationService: AuthenticationService,
     private engagementsService: EngagementsService,
     private modalService: NgbModal,
     private toastr: NotificationService,

@@ -5,15 +5,16 @@ import { NotificationService } from 'src/app/services/notification-service/notif
 import { StudentService } from 'src/app/services/student/student.service';
 
 @Component({
-  selector: 'app-exam-registration-history',
-  templateUrl: './exam-registration-history.component.html',
-  styleUrls: ['./exam-registration-history.component.css']
+  selector: 'app-exam-failed',
+  templateUrl: './exam-failed.component.html',
+  // styleUrls: ['./exam-failed.component.css']
 })
-export class ExamRegistrationHistoryComponent implements OnInit {
+export class ExamFailedComponent implements OnInit {
+
 
   searchText;
   activeTab = 1;
-  examRegistrationList: any;
+  examFailedList: any;
   currentUser: any;
   studentRole = false;
   dirty = false;
@@ -23,6 +24,7 @@ export class ExamRegistrationHistoryComponent implements OnInit {
 
   constructor(
     private examRegistrationService: ExamRegistrationService,
+    private toastr: NotificationService,
     private router: Router,
     private studentService: StudentService
     ) {
@@ -49,9 +51,16 @@ export class ExamRegistrationHistoryComponent implements OnInit {
 
   getExamRegistrations(id: any) {
     this.examRegistrationService.getExamRegistrations(id).subscribe((resp) => {
-        this.examRegistrationList = resp.content;
+      const failedExams = [];
+      for (const item in resp.content ) {
+        if (item !== undefined) {
+          if (resp.content[item].examRegistrationStatus == 'FAILED') {
+            failedExams.push(resp.content[item]);
+          }
+        }
       }
-    );
+      this.examFailedList = failedExams;
+    });
   }
 
   getStudentList() {

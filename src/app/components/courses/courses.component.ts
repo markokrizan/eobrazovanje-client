@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
 import Courses, { Semester } from 'src/app/models/courses';
@@ -23,6 +24,7 @@ export class CoursesComponent implements OnInit, OnDestroy {
   coursesList; any;
   currentUser: any;
   adminRole = false;
+  teacherRole = false;
   public courseForm: FormGroup;
   private subscription: Subscription;
   dirty = false;
@@ -31,7 +33,8 @@ export class CoursesComponent implements OnInit, OnDestroy {
     private authenticationService: AuthenticationService,
     private coursesService: CoursesService,
     private modalService: NgbModal,
-    private toastr: NotificationService
+    private toastr: NotificationService,
+    private router: Router
     ) {
 
     }
@@ -45,6 +48,12 @@ export class CoursesComponent implements OnInit, OnDestroy {
       this.adminRole = true;
       this.getCourses();
       this.getCourseStorage();
+    } else if (this.currentUser.roles == 'ROLE_TEACHER') {
+      this.teacherRole = true;
+      this.getCourseStorage();
+      this.getTeacherCourses();
+    } else {
+      this.router.navigate(['']);
     }
 
 
@@ -90,6 +99,12 @@ export class CoursesComponent implements OnInit, OnDestroy {
     );
   }
 
+  getTeacherCourses() {
+    this.coursesService.getTeacherCourses(this.currentUser.id).subscribe((resp) => {
+        this.coursesList = resp.content;
+      }
+    );
+  }
 
   saveCourse() {
     if (this.courseForm.valid) {
@@ -99,7 +114,11 @@ export class CoursesComponent implements OnInit, OnDestroy {
           this.setFormValue(resp);
           if (this.currentUser.roles != 'ROLE_STUDENT') {
             this.toastr.showSuccess('Successfully saved!');
-            this.getCourses();
+            if (this.teacherRole) {
+              this.getTeacherCourses();
+            } else {
+              this.getCourses();
+            }
           }
           this.dirty = false;
           sessionStorage.setItem('courseFormDirty', JSON.stringify(this.dirty));

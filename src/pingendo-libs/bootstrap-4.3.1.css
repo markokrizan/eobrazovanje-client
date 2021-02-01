@@ -9688,3 +9688,6 @@ a.text-dark:focus {
 .datepicker-style ngb-datepicker {
   width: 100%;
 }
+.student-filter {
+  width: 200px;
+}

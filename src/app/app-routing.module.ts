@@ -14,6 +14,9 @@ import { EngagementsComponent } from './components/engagements/engagements.compo
 import { TermComponent } from './components/term/term.component';
 import { ExamComponent } from './components/exam/exam.component';
 import { RegisterExamComponent } from './components/register-exam/register-exam.component';
+import { AdminComponent } from './components/admin/admin.component';
+import { ExamRegistrationHistoryComponent } from './components/exam-registration-history/exam-registration-history.component';
+import { ExamFailedComponent } from './components/exam-failed/exam-failed.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent},
@@ -29,7 +32,10 @@ const routes: Routes = [
   { path: 'study-programs', component: StudyProgramsComponent},
   { path: 'engagements', component: EngagementsComponent},
   { path: 'term', component: TermComponent},
-  { path: 'exam', component: ExamComponent}
+  { path: 'exam', component: ExamComponent},
+  { path: 'admins', component: AdminComponent},
+  { path: 'exam-history', component: ExamRegistrationHistoryComponent},
+  { path: 'exam-failed', component: ExamFailedComponent},
 ];
 
 @NgModule({

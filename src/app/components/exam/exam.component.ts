@@ -21,6 +21,7 @@ export class ExamComponent implements OnInit, OnDestroy {
   examsList; any;
   currentUser: any;
   adminRole = false;
+  teacherRole = false;
   public examForm: FormGroup;
   private subscription: Subscription;
   dirty = false;
@@ -37,7 +38,7 @@ export class ExamComponent implements OnInit, OnDestroy {
     private termService: TermService,
     private calendar: NgbCalendar,
     private parserFormatter: NgbDateParserFormatter,
-    private route: Router
+    private router: Router
     ) {
       this.selectedDate = this.calendar.getToday();
     }
@@ -47,13 +48,18 @@ export class ExamComponent implements OnInit, OnDestroy {
 
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
-    if (this.currentUser.roles != 'ROLE_STUDENT') {
+    if (this.currentUser.roles == 'ROLE_ADMIN') {
       this.getExams();
       this.getTermsList();
       this.getCoursesList();
       this.getExamStorage();
+    } else if (this.currentUser.roles == 'ROLE_TEACHER') {
+      this.teacherRole = true;
+      this.getTeacherCoursesList();
+      this.getExamsTeacher(this.currentUser.id);
+      this.getExamStorage();
     } else {
-      this.route.navigate(['']);
+      this.router.navigate(['']);
     }
 
 
@@ -98,9 +104,22 @@ export class ExamComponent implements OnInit, OnDestroy {
       }
     );
   }
+  getExamsTeacher(id) {
+    this.examService.getExamsTeacher(id).subscribe((resp) => {
+        this.examsList = resp.content;
+      }
+    );
+  }
 
   getCoursesList() {
     this.coursesService.getCourses().subscribe((resp) => {
+        this.courseList = resp.content;
+      }
+    );
+  }
+
+  getTeacherCoursesList() {
+    this.coursesService.getTeacherCourses(this.currentUser.id).subscribe((resp) => {
         this.courseList = resp.content;
       }
     );
@@ -125,7 +144,11 @@ export class ExamComponent implements OnInit, OnDestroy {
           this.setFormValue(resp);
           if (this.currentUser.roles != 'ROLE_STUDENT') {
             this.toastr.showSuccess('Successfully saved!');
-            this.getExams();
+            if (this.teacherRole) {
+              this.getExamsTeacher(this.currentUser.id);
+            } else {
+              this.getExams();
+            }
           }
           this.dirty = false;
           sessionStorage.setItem('examFormDirty', JSON.stringify(this.dirty));

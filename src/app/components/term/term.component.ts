@@ -63,8 +63,8 @@ export class TermComponent implements OnInit, OnDestroy {
     this.termForm =  new FormGroup({
       id: new FormControl(0),
       name: new FormControl('', Validators.required),
-      from: new FormControl('', Validators.required),
-      to: new FormControl('', Validators.required)
+      from: new FormControl(''),
+      to: new FormControl('')
    });
   }
 
@@ -76,7 +76,7 @@ export class TermComponent implements OnInit, OnDestroy {
     this.activeTab = activeTab;
   }
 
-  getTerm( id: any) {
+  getTerm(id: any) {
     this.termService.getTerm(id).subscribe(
       resp => {
         this.setFormValue(resp);
@@ -96,19 +96,23 @@ export class TermComponent implements OnInit, OnDestroy {
   saveTerm() {
     if (this.termForm.valid) {
       const data = this.prepareData();
-      data.from = this.parserFormatter.format(data.from);
-      data.to = this.parserFormatter.format(data.to);
-      this.termService.saveTerm(data.id, data.name, data.from, data.to).subscribe(
-        resp => {
-          this.setFormValue(resp);
-          if (this.currentUser.roles != 'ROLE_STUDENT') {
-            this.toastr.showSuccess('Successfully saved!');
-            this.getTerms();
+      if (data.from !== undefined && data.from !== null && data.to !== undefined && data.to !== null) {
+        this.toastr.showSuccess('Dates required!');
+      } else {
+        data.from = this.parserFormatter.format(data.from);
+        data.to = this.parserFormatter.format(data.to);
+        this.termService.saveTerm(data.id, data.name, data.from, data.to).subscribe(
+          resp => {
+            this.setFormValue(resp);
+            if (this.currentUser.roles != 'ROLE_STUDENT') {
+              this.toastr.showSuccess('Successfully saved!');
+              this.getTerms();
+            }
+            this.dirty = false;
+            sessionStorage.setItem('termFormDirty', JSON.stringify(this.dirty));
           }
-          this.dirty = false;
-          sessionStorage.setItem('termFormDirty', JSON.stringify(this.dirty));
-        }
-      );
+        );
+      }
     } else {
       this.getFormValidationErrors();
     }

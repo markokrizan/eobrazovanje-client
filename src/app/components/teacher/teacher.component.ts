@@ -68,9 +68,9 @@ export class TeacherComponent implements OnInit, OnDestroy {
       firstName: new FormControl('', Validators.required),
       lastName: new FormControl('', Validators.required),
       personalIdNumber: new FormControl('', Validators.required),
-      phoneNumber: new FormControl(''),
-      academicTitle: new FormControl(''),
-      email: new FormControl(''),
+      phoneNumber: new FormControl('', Validators.required),
+      academicTitle: new FormControl('', Validators.required),
+      email: new FormControl('', Validators.required),
       username: new FormControl('', Validators.required)
    });
   }
@@ -88,7 +88,7 @@ export class TeacherComponent implements OnInit, OnDestroy {
       resp => {
         this.setFormValue(resp);
         this.dirty = false;
-        sessionStorage.setItem('studentFormDirty', JSON.stringify(this.dirty));
+        sessionStorage.setItem('adminFormDirty', JSON.stringify(this.dirty));
       }
     );
   }
@@ -113,7 +113,7 @@ export class TeacherComponent implements OnInit, OnDestroy {
             this.getTeacherList();
           }
           this.dirty = false;
-          sessionStorage.setItem('studentFormDirty', JSON.stringify(this.dirty));
+          sessionStorage.setItem('adminFormDirty', JSON.stringify(this.dirty));
         }
       );
     } else {

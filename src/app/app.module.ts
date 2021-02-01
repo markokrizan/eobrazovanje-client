@@ -36,6 +36,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { EngagementsComponent } from './components/engagements/engagements.component';
 import { ExamComponent } from './components/exam/exam.component';
 import { AdminComponent } from './components/admin/admin.component';
+import { ExamFailedComponent } from './components/exam-failed/exam-failed.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { AdminComponent } from './components/admin/admin.component';
     StudyProgramsComponent,
     EngagementsComponent,
     ExamComponent,
-    AdminComponent
+    AdminComponent,
+    ExamFailedComponent
   ],
   imports: [
     BrowserModule,

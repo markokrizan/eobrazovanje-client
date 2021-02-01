@@ -26,7 +26,7 @@ export class ExamGradeComponent implements OnInit {
   constructor(
     private examGradeService: ExamGradeService,
     private toastr: NotificationService,
-    private route: Router
+    private router: Router
     ) {
     }
 
@@ -37,7 +37,7 @@ export class ExamGradeComponent implements OnInit {
     if (this.currentUser.roles != 'ROLE_STUDENT') {
       this.getExamsGrade();
     } else {
-      this.route.navigate(['']);
+      this.router.navigate(['']);
     }
 
 

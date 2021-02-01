@@ -49,8 +49,6 @@ export class StudentComponent implements OnInit, OnDestroy {
 
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
-    this.getStudyProgramList();
-
     if (this.currentUser.roles == 'ROLE_STUDENT') {
       this.changTab(2);
       this.studentRole = true;
@@ -61,6 +59,7 @@ export class StudentComponent implements OnInit, OnDestroy {
     } else {
       this.getStudentList();
       this.getStudentStorage();
+      this.getStudyProgramList();
     }
 
     this.subscription = this.studentForm.valueChanges.subscribe(x => {
@@ -81,6 +80,7 @@ export class StudentComponent implements OnInit, OnDestroy {
       email: new FormControl(''),
       username: new FormControl('', Validators.required),
       studyProgram: new FormControl('', Validators.required),
+      studyProgramText: new FormControl(''),
       currentStudyYear: new FormControl('', Validators.required),
       financialStatus: new FormControl('', Validators.required)
    });
@@ -131,8 +131,8 @@ export class StudentComponent implements OnInit, OnDestroy {
         ).subscribe(
         resp => {
           this.setFormValue(resp);
+          this.toastr.showSuccess('Successfully saved!');
           if (this.currentUser.roles != 'ROLE_STUDENT') {
-            this.toastr.showSuccess('Successfully saved!');
             this.getStudentList();
           }
           this.dirty = false;
@@ -174,6 +174,11 @@ export class StudentComponent implements OnInit, OnDestroy {
     } else {
       this.studentForm.controls.studyProgram.setValue(data.studyProgram);
     }
+    if (data.studyProgram.name !== undefined && data.studyProgram.name !== null && data.studyProgram.name != '') {
+      this.studentForm.controls.studyProgramText.setValue(data.studyProgram.name);
+    } else {
+      this.studentForm.controls.studyProgramText.setValue(data.studyProgramText);
+    }
     this.studentForm.controls.currentStudyYear.setValue(data.currentStudyYear);
     this.studentForm.controls.financialStatus.setValue(data.financialStatus);
   }
@@ -211,6 +216,7 @@ export class StudentComponent implements OnInit, OnDestroy {
     this.studentService.deleteStudent(id).subscribe(
       resp => {
         this.getStudentList();
+        this.toastr.showSuccess('Successfully deleted!');
       }
     );
   }

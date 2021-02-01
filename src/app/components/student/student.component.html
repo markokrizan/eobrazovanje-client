@@ -53,7 +53,7 @@
                   <div *ngIf="!studentRole" title="Add" class="col-md-6 text-right"><a class="btn btn-success" (click)="checkFormDirty(0)" ><i class="fa fa-plus fa-fw fa-1x py-1"></i></a></div>
                 </div>
                 <form [formGroup]="studentForm">
-                  <div class="row">
+                  <div *ngIf="!studentRole" class="row">
                     <div class="col-md-3 py-2 d-flex align-items-center justify-content-end border-right"><label>Id:</label></div>
                     <div class="col-md-6 d-flex align-items-center justify-content-start">
                       <input class="form-control" formControlName="id" type="number" readonly>
@@ -89,12 +89,18 @@
                       <input class="form-control" formControlName="phoneNumber">
                     </div>
                   </div>
-                  <div class="row">
+                  <div class="row" [ngClass]="(studentRole) ? ' d-none' : ''">
                     <div class="col-md-3 py-2 d-flex align-items-center justify-content-end border-right"><label>Study program:</label></div>
                     <div class="col-md-6 d-flex align-items-center justify-content-start">
                       <select class="form-control" formControlName="studyProgram">
                         <option *ngFor="let studyProgram of studyProgramsList" [ngValue]="studyProgram.id" valuePrimitive="true">{{studyProgram.name}}</option>
                       </select>
+                    </div>
+                  </div>
+                  <div class="row" [ngClass]="(!studentRole) ? ' d-none' : ''">
+                    <div class="col-md-3 py-2 d-flex align-items-center justify-content-end border-right"><label>Study program:</label></div>
+                    <div class="col-md-6 d-flex align-items-center justify-content-start">
+                        <input class="form-control" formControlName="studyProgramText" type="text" readonly>
                     </div>
                   </div>
                   <div class="row">

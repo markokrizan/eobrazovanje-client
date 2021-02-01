@@ -10,6 +10,7 @@ export class CoursesService {
 
   private readonly coursesPath = `${environment.apiBaseUri}/courses/`;
   private readonly coursePath = `${environment.apiBaseUri}/courses`;
+  private readonly teacherCoursePath = `${environment.apiBaseUri}/teachers/`;
 
 
   constructor(
@@ -22,6 +23,10 @@ export class CoursesService {
 
   getCourses(): Observable<any> {
     return this.http.get<any>(this.coursePath);
+  }
+
+  getTeacherCourses(id): Observable<any> {
+    return this.http.get<any>(this.teacherCoursePath + id + '/courses');
   }
 
   saveCourse(espbPoints: any, id: any, name: any, semester: any, year: any): Observable<any> {

@@ -25,7 +25,6 @@
                 <th scope="col">Course</th>
                 <th scope="col">Location</th>
                 <th scope="col">Date</th>
-                <th scope="col">Grad</th>
               </tr>
               </thead>
               <tbody>
@@ -34,7 +33,6 @@
                   <td>{{ examFailed.exam.course.name }}</td>
                   <td>{{ examFailed.exam.location }}</td>
                   <td>{{ examFailed.exam.examDate | date }}</td>
-                  <td>{{ examFailed.student.grades[0].grade }}</td>
                 </tr>
               </tbody>
             </table>

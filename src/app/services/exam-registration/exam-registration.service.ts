@@ -10,6 +10,7 @@ export class ExamRegistrationService {
 
   private readonly examRegistablePath = `${environment.apiBaseUri}/students/`;
   private readonly examRegisterPath = `${environment.apiBaseUri}/exam-registrations`;
+  private readonly examRegistrationsPath = `${environment.apiBaseUri}/students/`;
 
   constructor(
     private http: HttpClient,
@@ -17,6 +18,10 @@ export class ExamRegistrationService {
 
   getExamRegistable(id: any): Observable<any> {
     return this.http.get<any>(this.examRegistablePath + id + '/registrable-exams');
+  }
+
+  getExamRegistrations(id: any): Observable<any> {
+    return this.http.get<any>(this.examRegistrationsPath + id + '/exam-registrations');
   }
 
   saveExamRegistration(exam: any, student: any): Observable<any> {
