@@ -29,12 +29,12 @@
               </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let examFailed of examFailedList | filter:searchText">
-                  <td>{{ examFailed.exam.term.name }}</td>
-                  <td>{{ examFailed.exam.course.name }}</td>
-                  <td>{{ examFailed.exam.location }}</td>
-                  <td>{{ examFailed.exam.examDate | date }}</td>
-                  <td>{{ examFailed.student.grades[0].grade }}</td>
+                <tr *ngFor="let examPassed of examPassedList | filter:searchText">
+                  <td>{{ examPassed.exam.term.name }}</td>
+                  <td>{{ examPassed.exam.course.name }}</td>
+                  <td>{{ examPassed.exam.location }}</td>
+                  <td>{{ examPassed.exam.examDate | date }}</td>
+                  <td>{{ examPassed.gradeType }}</td>
                 </tr>
               </tbody>
             </table>

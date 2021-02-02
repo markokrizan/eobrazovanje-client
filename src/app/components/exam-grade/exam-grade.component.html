@@ -10,6 +10,11 @@
             <form>
               <div class="form-group form-inline">
                   Search: <input class="form-control ml-2" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="Search">
+                  <div class="row ml-3 student-filter" [ngClass]="(teacherRole) ? ' d-none' : ''">
+                    <select class="form-control w-100" [(ngModel)]="selectedTeacher"  [ngModelOptions]="{standalone: true}" (ngModelChange)="teacherSelect($event)">
+                      <option *ngFor="let teacher of teachersList" [ngValue]="teacher.id"> {{ teacher.firstName + ' ' + teacher.lastName }} </option>
+                    </select>
+                  </div>
               </div>
             </form>
 

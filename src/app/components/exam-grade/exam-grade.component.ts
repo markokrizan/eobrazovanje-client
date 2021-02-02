@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ExamGradeFeil, ExamGradePass, ExamRegistrationStatus, GradeType } from 'src/app/models/exam-grade';
 import { ExamGradeService } from 'src/app/services/exam-grade/exam-grade.service';
 import { NotificationService } from 'src/app/services/notification-service/notification-service';
+import { TeacherService } from 'src/app/services/teacher/teacher.service';
 
 @Component({
   selector: 'app-exam-grade',
@@ -16,15 +17,19 @@ export class ExamGradeComponent implements OnInit {
   examGradeFeil: ExamGradeFeil;
   examGradePass: ExamGradePass;
   gradeType = GradeType;
-  examGradeList; any;
+  examGradeList: any;
   currentUser: any;
   dirty = false;
+  teacherRole = false;
+  selectedTeacher;
+  teachersList: any;
 
   selectedGrade: any;
 
 
   constructor(
     private examGradeService: ExamGradeService,
+    private teacherService: TeacherService,
     private toastr: NotificationService,
     private router: Router
     ) {
@@ -34,8 +39,11 @@ export class ExamGradeComponent implements OnInit {
 
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
-    if (this.currentUser.roles != 'ROLE_STUDENT') {
-      this.getExamsGrade();
+    if (this.currentUser.roles == 'ROLE_TEACHER') {
+      this.teacherRole = true;
+      this.getExamsGrade(this.currentUser.id);
+    } else if (this.currentUser.roles == 'ROLE_ADMIN') {
+      this.getTeacherList();
     } else {
       this.router.navigate(['']);
     }
@@ -47,11 +55,22 @@ export class ExamGradeComponent implements OnInit {
     this.activeTab = activeTab;
   }
 
-  getExamsGrade() {
-    this.examGradeService.getExamsGrade(this.currentUser.id).subscribe((resp) => {
+  getExamsGrade(id) {
+    this.examGradeService.getExamsGrade(id).subscribe((resp) => {
         this.examGradeList = resp.content;
       }
     );
+  }
+
+  getTeacherList() {
+    this.teacherService.getTeachers().subscribe((resp) => {
+        this.teachersList = resp.content;
+      }
+    );
+  }
+
+  teacherSelect(ev: any) {
+    this.getExamsGrade(ev);
   }
 
   checkSaveStatus(grade: any) {
@@ -73,7 +92,11 @@ export class ExamGradeComponent implements OnInit {
     this.examGradeService.saveExamPass(exam, student, examRegistration, this.selectedGrade).subscribe(
       resp => {
         this.toastr.showSuccess('Successfully saved!');
-        this.getExamsGrade();
+        if (this.teacherRole) {
+          this.getExamsGrade(this.currentUser.id);
+        } else {
+          this.getExamsGrade(this.selectedTeacher);
+        }
         this.selectedGrade = undefined;
         this.dirty = false;
         sessionStorage.setItem('termFormDirty', JSON.stringify(this.dirty));
@@ -87,7 +110,11 @@ export class ExamGradeComponent implements OnInit {
     this.examGradeService.saveExamFail(gradeFail.id, exam, student, ExamRegistrationStatus.FAILED).subscribe(
       resp => {
         this.toastr.showSuccess('Successfully saved!');
-        this.getExamsGrade();
+        if (this.teacherRole) {
+          this.getExamsGrade(this.currentUser.id);
+        } else {
+          this.getExamsGrade(this.selectedTeacher);
+        }
         this.selectedGrade = undefined;
         this.dirty = false;
         sessionStorage.setItem('termFormDirty', JSON.stringify(this.dirty));

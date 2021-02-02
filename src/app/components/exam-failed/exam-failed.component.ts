@@ -52,15 +52,41 @@ export class ExamFailedComponent implements OnInit {
   getExamRegistrations(id: any) {
     this.examRegistrationService.getExamRegistrations(id).subscribe((resp) => {
       const failedExams = [];
+      const passedExams = [];
       for (const item in resp.content ) {
         if (item !== undefined) {
           if (resp.content[item].examRegistrationStatus == 'FAILED') {
             failedExams.push(resp.content[item]);
+          } else if (resp.content[item].examRegistrationStatus == 'PASSED') {
+            passedExams.push(resp.content[item]);
           }
         }
       }
       this.examFailedList = failedExams;
+      for (const fail in failedExams) {
+        if (fail !== undefined) {
+          for (const pass in passedExams) {
+            if (pass !== undefined) {
+              if (failedExams[fail].exam.course.id === passedExams[pass].exam.course.id) {
+                this.removePassedExams(failedExams[fail]);
+              }
+            }
+          }
+        }
+      }
     });
+  }
+
+  removePassedExams(data: any) {
+    const notPassExams = [];
+    for (const prop in this.examFailedList) {
+      if (prop !== undefined) {
+        if (this.examFailedList[prop].exam.course.id !== data.exam.course.id) {
+          notPassExams.push(this.examFailedList[prop]);
+        }
+      }
+    }
+    this.examFailedList = notPassExams;
   }
 
   getStudentList() {

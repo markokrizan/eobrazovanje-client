@@ -10,7 +10,7 @@ export class StudentService {
 
   private readonly studentPath = `${environment.apiBaseUri}/students/`;
   private readonly studentsPath = `${environment.apiBaseUri}/students`;
-
+  private readonly studentsGradesPath = `${environment.apiBaseUri}/students`;
 
   constructor(
     private http: HttpClient,
@@ -18,6 +18,10 @@ export class StudentService {
 
   getStudent( id: any): Observable<any> {
     return this.http.get<any>(this.studentPath + id);
+  }
+
+  getStudentGrades( id: any): Observable<any> {
+    return this.http.get<any>(this.studentPath + id + '/grades');
   }
 
   getStudents(): Observable<any> {

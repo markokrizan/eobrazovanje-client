@@ -13,7 +13,7 @@ export class GradesComponent implements OnInit {
 
   searchText;
   activeTab = 1;
-  examFailedList: any;
+  examPassedList: any;
   currentUser: any;
   studentRole = false;
   dirty = false;
@@ -22,7 +22,6 @@ export class GradesComponent implements OnInit {
 
 
   constructor(
-    private examRegistrationService: ExamRegistrationService,
     private router: Router,
     private studentService: StudentService
     ) {
@@ -34,7 +33,7 @@ export class GradesComponent implements OnInit {
 
     if (this.currentUser.roles == 'ROLE_STUDENT') {
       this.studentRole = true;
-      this.getExamRegistrations(this.currentUser.id);
+      this.getStudentGrades(this.currentUser.id);
     } else if (this.currentUser.roles == 'ROLE_ADMIN') {
       this.getStudentList();
     } else {
@@ -47,17 +46,9 @@ export class GradesComponent implements OnInit {
     this.activeTab = activeTab;
   }
 
-  getExamRegistrations(id: any) {
-    this.examRegistrationService.getExamRegistrations(id).subscribe((resp) => {
-      const failedExams = [];
-      for (const item in resp.content ) {
-        if (item !== undefined) {
-          if (resp.content[item].examRegistrationStatus == 'PASSED') {
-            failedExams.push(resp.content[item]);
-          }
-        }
-      }
-      this.examFailedList = failedExams;
+  getStudentGrades(id: any) {
+    this.studentService.getStudentGrades(id).subscribe((resp) => {
+      this.examPassedList = resp.content;
     });
   }
 
@@ -69,7 +60,7 @@ export class GradesComponent implements OnInit {
   }
 
   studentSelect(ev: any) {
-    this.getExamRegistrations(ev);
+    this.getStudentGrades(ev);
   }
 
 }
