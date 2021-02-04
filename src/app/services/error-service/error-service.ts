@@ -10,7 +10,7 @@ export class ErrorService {
     if (!navigator.onLine) {
         return 'No Internet Connection';
     }
-      return error.message ? error.message : error.toString();
+    return error.message ? error.message : error.toString();
     }
 
   getClientStack(error: Error): string {
@@ -18,7 +18,15 @@ export class ErrorService {
   }
 
   getServerMessage(error: HttpErrorResponse): string {
-      return error.error.message;
+    let mess = '';
+    for (const message in error.error.errors) {
+      if (message !== undefined) {
+        if (error.error.errors[message].defaultMessage !== undefined) {
+          mess +=  error.error.errors[message].defaultMessage + '. ';
+        }
+      }
+    }
+    return mess;
   }
 
   getServerStack(error: HttpErrorResponse): string {

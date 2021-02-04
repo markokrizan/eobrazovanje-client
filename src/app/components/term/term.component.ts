@@ -96,7 +96,7 @@ export class TermComponent implements OnInit, OnDestroy {
   saveTerm() {
     if (this.termForm.valid) {
       const data = this.prepareData();
-      if (data.from !== undefined && data.from !== null && data.to !== undefined && data.to !== null) {
+      if (data.from === undefined && data.from === null && data.to === undefined && data.to === null) {
         this.toastr.showSuccess('Dates required!');
       } else {
         data.from = this.parserFormatter.format(data.from);

@@ -14,7 +14,7 @@ export class AdminService {
 
 
   constructor(
-    private http: HttpClient,
+    private http: HttpClient
   ) { }
 
   getAdmin( username: any): Observable<any> {

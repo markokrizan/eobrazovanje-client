@@ -48,6 +48,7 @@ export class AdminComponent implements OnInit {
       this.adminRole = true;
       this.getAdminStorage();
     } else {
+      this.toastr.showError('Successfully deleted!');
       this.router.navigate(['']);
     }
 

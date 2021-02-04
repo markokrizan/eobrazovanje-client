@@ -179,7 +179,7 @@ export class CoursesComponent implements OnInit, OnDestroy {
   deleteCourse(id: any) {
     this.coursesService.deleteCourse(id).subscribe(
       resp => {
-        this.toastr.showSuccess('Uspešno obrisano!');
+        this.toastr.showSuccess('Successfully deleted!');
         this.getCourses();
       }
     );
