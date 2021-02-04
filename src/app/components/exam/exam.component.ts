@@ -76,7 +76,7 @@ export class ExamComponent implements OnInit, OnDestroy {
       location: new FormControl('', Validators.required),
       term: new FormControl('', Validators.required),
       course: new FormControl('', Validators.required),
-      examDate: new FormControl('', Validators.required)
+      examDate: new FormControl('')
    });
   }
 
@@ -136,24 +136,28 @@ export class ExamComponent implements OnInit, OnDestroy {
   saveExam() {
     if (this.examForm.valid) {
       const data = Object.assign({ }, this.prepareData());
-      data.course = { 'id': data.course};
-      data.term = { 'id': data.term};
-      data.examDate = this.parserFormatter.format(this.selectedDate);
-      this.examService.saveExam(data.id, data.term, data.course, data.location, data.examDate).subscribe(
-        resp => {
-          this.setFormValue(resp);
-          if (this.currentUser.roles != 'ROLE_STUDENT') {
-            this.toastr.showSuccess('Successfully saved!');
-            if (this.teacherRole) {
-              this.getExamsTeacher(this.currentUser.id);
-            } else {
-              this.getExams();
+      if (this.selectedDate === undefined && this.selectedDate === null) {
+        this.toastr.showSuccess('Dates required!');
+      } else {
+        data.course = { 'id': data.course};
+        data.term = { 'id': data.term};
+        data.examDate = this.parserFormatter.format(this.selectedDate);
+        this.examService.saveExam(data.id, data.term, data.course, data.location, data.examDate).subscribe(
+          resp => {
+            this.setFormValue(resp);
+            if (this.currentUser.roles != 'ROLE_STUDENT') {
+              this.toastr.showSuccess('Successfully saved!');
+              if (this.teacherRole) {
+                this.getExamsTeacher(this.currentUser.id);
+              } else {
+                this.getExams();
+              }
             }
+            this.dirty = false;
+            sessionStorage.setItem('examFormDirty', JSON.stringify(this.dirty));
           }
-          this.dirty = false;
-          sessionStorage.setItem('examFormDirty', JSON.stringify(this.dirty));
-        }
-      );
+        );
+      }
     } else {
       this.getFormValidationErrors();
     }

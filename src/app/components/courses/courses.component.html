@@ -10,7 +10,7 @@
           <div  [ngClass]="(activeTab === 1) ? 'show active' : ''" class="tab-pane fade" id="tabone" role="tabpanel">
             <form>
               <div class="form-group form-inline">
-                <div class="pr-2 text-right" title="Add"><a class="btn btn-success" (click)="checkFormDirty(0)" ><i class="fa fa-plus fa-fw fa-1x py-1"></i></a></div>
+                <div [ngClass]="(teacherRole) ? ' d-none' : ''" class="pr-2 text-right" title="Add"><a class="btn btn-success" (click)="checkFormDirty(0)" ><i class="fa fa-plus fa-fw fa-1x py-1"></i></a></div>
                   Search: <input class="form-control ml-2" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="Search">
               </div>
             </form>
@@ -46,7 +46,7 @@
                   <div class="col-md-6">
                     <h5 class="card-title"><b>General course info:</b></h5>
                   </div>
-                  <div title="Add" class="col-md-6 text-right"><a class="btn btn-success" (click)="checkFormDirty(0)" ><i class="fa fa-plus fa-fw fa-1x py-1"></i></a></div>
+                  <div [ngClass]="(teacherRole) ? ' d-none' : ''" title="Add" class="col-md-6 text-right"><a class="btn btn-success" (click)="checkFormDirty(0)" ><i class="fa fa-plus fa-fw fa-1x py-1"></i></a></div>
                 </div>
                 <form [formGroup]="courseForm">
                   <div class="row">

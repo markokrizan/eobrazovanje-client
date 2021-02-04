@@ -26,7 +26,11 @@ export class ErrorService {
         }
       }
     }
-    return mess;
+    if (mess == '') {
+      return error.error.message;
+    } else {
+      return mess;
+    }
   }
 
   getServerStack(error: HttpErrorResponse): string {
